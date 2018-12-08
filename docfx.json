@@ -1,0 +1,277 @@
+{
+  "build": {
+    "globalMetadata": {
+      "_enableSearch": true,
+      "_disableNavbar": false,
+      "_disableBreadcrumb": true,
+      "_disableToc": false,
+      "_appFaviconPath": "assets/prooph-logo@0.5x.png",
+      "_appTitle": "Prooph Documentation",
+      "_appFooter": "&copy; 2018 Event Store LLP / &copy; 2018 Sascha-Oliver Prolic / &copy; 2018 prooph software GmbH",
+      "_gitContribute": {
+        "branch": "master"
+      }
+    },
+    "content": [
+      {
+        "files": [
+          "index.md",
+          "toc.yml"
+        ]
+      },
+      {
+        "files": "index.md",
+        "src": "event-store-client",
+        "dest": "event-store-client"
+      },
+      {
+        "files": "competing-consumers.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/competing-consumers"
+      },
+      {
+        "files": "connecting-to-a-server.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/connecting-to-a-server"
+      },
+      {
+        "files": "index.md",
+        "src": "event-store-client",
+        "dest": "event-store-client"
+      },
+      {
+        "files": "optimistic-concurrency-and-idempotence.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/optimistic-concurrency-and-idempotence"
+      },
+      {
+        "files": "projections.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/projections"
+      },
+      {
+        "files": "reading-events.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/reading-events"
+      },
+      {
+        "files": "persistent-subscriptions.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/persistent-subscriptions"
+      },
+      {
+        "files": "stream-metadata.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/stream-metadata"
+      },
+      {
+        "files": "users.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/users"
+      },
+      {
+        "files": "writing-to-a-stream.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/writing-to-a-stream"
+      },
+      {
+        "files": "blueprints.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/blueprints"
+      },
+      {
+        "files": "readmodels.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/read-models"
+      },
+      {
+        "files": "index.md",
+        "src": "getting-started",
+        "dest": "getting-started"
+      },
+      {
+        "files": "reading-subscribing-events.md",
+        "src": "getting-started",
+        "dest": "getting-started/reading-subscribing-events"
+      },
+      {
+        "files": "projections.md",
+        "src": "getting-started",
+        "dest": "getting-started/projections"
+      },
+      {
+        "files": "index.md",
+        "src": "event-store-v8",
+        "dest": "event-store-v8"
+      },
+      {
+        "files": "introduction.md",
+        "src": "tutorial",
+        "dest": "tutorial"
+      },
+      {
+        "files": "why_event_sourcing.md",
+        "src": "tutorial",
+        "dest": "tutorial/why_event_sourcing"
+      },
+      {
+        "files": "event_sourcing_basics.md",
+        "src": "tutorial",
+        "dest": "tutorial/event_sourcing_basics"
+      },
+      {
+        "files": "testing_aggregates.md",
+        "src": "tutorial",
+        "dest": "tutorial/testing_aggregates"
+      },
+      {
+        "files": "aggregate_dependencies.md",
+        "src": "tutorial",
+        "dest": "tutorial/aggregate_dependencies"
+      },
+      {
+        "files": "process_manager.md",
+        "src": "tutorial",
+        "dest": "tutorial/process_manager"
+      },
+      {
+        "files": "blueprints.md",
+        "src": "tutorial",
+        "dest": "tutorial/blueprints"
+      },
+      {
+        "files": "event.md",
+        "src": "old_documentation/common",
+        "dest": "old_documentation/common/event"
+      },
+      {
+        "files": "messaging.md",
+        "src": "old_documentation/common",
+        "dest": "old_documentation/common/messaging"
+      },
+      {
+        "files": "introduction.md",
+        "src": "event-store-v7",
+        "dest": "event-store-v7"
+      },
+      {
+        "files": "event_store_plugins.md",
+        "src": "event-store-v7",
+        "dest": "event-store-v7/event_store_plugins"
+      },
+      {
+        "files": "interop_factories.md",
+        "src": "event-store-v7",
+        "dest": "event-store-v7/interop_factories"
+      },
+      {
+        "files": "migration.md",
+        "src": "event-store-v7",
+        "dest": "event-store-v7/migration"
+      },
+      {
+        "files": "projections.md",
+        "src": "event-store-v7",
+        "dest": "event-store-v7/projections"
+      },
+      {
+        "files": "standard_projections.md",
+        "src": "event-store-v7",
+        "dest": "event-store-v7/standard_projections"
+      },
+      {
+        "files": "stream_iterator.md",
+        "src": "event-store-v7",
+        "dest": "event-store-v7/stream_iterator"
+      },
+      {
+        "files": "upcasting.md",
+        "src": "event-store-v7",
+        "dest": "event-store-v7/upcasting"
+      },
+      {
+        "files": "introduction.md",
+        "src": "pdo-event-store",
+        "dest": "pdo-event-store"
+      },
+      {
+        "files": "variants.md",
+        "src": "pdo-event-store",
+        "dest": "pdo-event-store/variants"
+      },
+      {
+        "files": "interop_factories.md",
+        "src": "pdo-event-store",
+        "dest": "pdo-event-store/interop_factories"
+      },
+      {
+        "files": "introduction.md",
+        "src": "old_documentation/event-sourcing",
+        "dest": "old_documentation/event-sourcing"
+      },
+      {
+        "files": "repositories.md",
+        "src": "old_documentation/event-sourcing",
+        "dest": "old_documentation/event-sourcing/repositories"
+      },
+      {
+        "files": "inheritance.md",
+        "src": "old_documentation/event-sourcing",
+        "dest": "old_documentation/event-sourcing/inheritance"
+      },
+      {
+        "files": "migration.md",
+        "src": "old_documentation/event-sourcing",
+        "dest": "old_documentation/event-sourcing/migration"
+      },
+      {
+        "files": "interop_factories.md",
+        "src": "old_documentation/event-sourcing",
+        "dest": "old_documentation/event-sourcing/interop_factories"
+      },
+      {
+        "files": "overview.md",
+        "src": "old_documentation/service-bus",
+        "dest": "old_documentation/service-bus"
+      },
+      {
+        "files": "message_bus.md",
+        "src": "old_documentation/service-bus",
+        "dest": "old_documentation/service-bus/message_bus"
+      },
+      {
+        "files": "plugins.md",
+        "src": "old_documentation/service-bus",
+        "dest": "old_documentation/service-bus/plugins"
+      },
+      {
+        "files": "async_message_producer.md",
+        "src": "old_documentation/service-bus",
+        "dest": "old_documentation/service-bus/async_message_producer"
+      },
+      {
+        "files": "factories.md",
+        "src": "old_documentation/service-bus",
+        "dest": "old_documentation/service-bus/factories"
+      }
+
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**",
+          "assets/**",
+          "code-examples/**"
+        ]
+      }
+    ],
+    "dest": "_site",
+    "exclude": [
+      ".git/**"
+    ],
+    "template": [
+      "default",
+      "../es-docs-template"
+    ]
+  }
+}

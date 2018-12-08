@@ -1,0 +1,89 @@
+# macOS
+.DS_Store*
+Icon?
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+build.sh
+redirects.xml
+/_site
+
+config.codekit
+/obj
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+
+
+# Click-Once directory
+publish/
+
+# Publish Web Output
+*.Publish.xml
+
+# Windows Store app package directory
+AppPackages/
+
+# Others
+*.Cache
+ClientBin/
+[Ss]tyle[Cc]op.*
+~$*
+*~
+*.dbmdl
+*.[Pp]ublish.xml
+*.pfx
+*.publishsettings
+modulesbin/
+tempbin/
+
+# vim
+*.txt~
+*.swp
+*.swo
+
+# Remainings from resolvings conflicts in Source Control
+*.orig
+
+# =========================
+# Windows detritus
+# =========================
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac desktop service store files
+.DS_Store
+
+# Rider
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+#####
+# End of core ignore list, below put you custom 'per project' settings (patterns or path)
+#####
+build.sh
+/deploy.sh
+/http-api/README.md
+/http-api/swagger.json
+/code-examples/jvm-client
+/code-examples/dotnet-client

@@ -1,0 +1,15 @@
+"effectiveName": "$streams"
+"status": "Stopped"
+"statusUrl": "http://localhost:2113/projection/$streams"
+
+"effectiveName": "$stream_by_category"
+"status": "Stopped"
+"statusUrl": "http://localhost:2113/projection/$stream_by_category"
+
+"effectiveName": "$by_category"
+"status": "Stopped"
+"statusUrl": "http://localhost:2113/projection/$by_category"
+
+"effectiveName": "$by_event_type"
+"status": "Stopped"
+"statusUrl": "http://localhost:2113/projection/$by_event_type"

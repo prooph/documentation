@@ -1,0 +1,33 @@
+---
+permalink: /404.html
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting&hellip;</title>
+</head>
+<body>
+<script type="text/javascript">
+    var currentLocation = window.location.pathname.toLowerCase();
+    var currentHref = window.location.href.toLowerCase();
+    var parts = currentLocation.split("latest");
+    var versions = {{ site.latest_versions | jsonify }};
+
+    var section = parts[0].substring(1,parts[0].length - 1);
+    var latestVersion = versions[section];
+    var redirectTo = "/";
+
+    if(latestVersion !== undefined && (currentLocation.indexOf("latest") !== -1)) {
+
+        redirectTo = currentHref.replace("latest", latestVersion);
+
+        if(!redirectTo.charAt(redirectTo.length - 1) !== '/')
+            redirectTo = redirectTo + "/";
+    }
+
+    window.location.assign(redirectTo);
+</script>
+</body>
+</html>

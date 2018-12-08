@@ -1,0 +1,114 @@
+- name: Event Store v7
+  items:
+    - name: Tutorial
+      items:
+      - name: Introduction
+        href: tutorial/introduction.md
+      - name: Why Event Sourcing?
+        href: tutorial/why_event_sourcing.md
+      - name: Event Sourcing Basics
+        href: tutorial/event_sourcing_basics.md
+      - name: Testing Aggregates
+        href: tutorial/testing_aggregates.md
+      - name: Aggregate Dependencies
+        href: tutorial/aggregate_dependencies.md
+      - name: Process Managers
+        href: tutorial/process_manager.md
+    - name: Interfaces
+      items:
+        - name: Introduction
+          href: event-store-v7/introduction.md
+        - name: Plugins & Extensions
+          href: event-store-v7/event_store_plugins.md
+        - name: Projections
+          href: event-store-v7/projections.md
+        - name: Standard Projections
+          href: event-store-v7/standard_projections.md
+        - name: Upcasting
+          href: event-store-v7/upcasting.md
+        - name: Interop Factories
+          href: event-store-v7/interop_factories.md
+        - name: StreamIterator
+          href: event-store-v7/stream_iterator.md
+        - name: Migration from v6 to v7
+          href: event-store-v7/migration.md
+    - name: PDO Event Store
+      items:
+        - name: Introduction
+          href: pdo-event-store/introduction.md
+        - name: Variants
+          href: pdo-event-store/variants.md
+        - name: Interop Factories
+          href: pdo-event-store/interop_factories.md
+- name: Event Store v8
+  href: event-store-v8/index.md
+- name: Event Store Client
+  items:
+  - name: Overview
+    href: event-store-client/index.md
+  - name: Getting Started
+    items:
+      - name: Step 1 - Install, run, and write your first event
+        href: getting-started/index.md
+      - name: Step 2 - Read events from a stream and subscribe to changes
+        href: getting-started/reading-subscribing-events.md
+      - name: Step 3 - Projections
+        href: getting-started/projections.md
+  - name: API
+    items:
+      - name: Connecting to a Server
+        href: event-store-client/connecting-to-a-server.md
+      - name: Writing to a Stream
+        href: event-store-client/writing-to-a-stream.md
+      - name: Reading Events
+        href: event-store-client/reading-events.md
+      - name: Persistent Subscriptions
+        href: event-store-client/persistent-subscriptions.md
+      - name: Competing Consumers
+        href: event-store-client/competing-consumers.md
+      - name: Optimistic Concurrency & Idempotence
+        href: event-store-client/optimistic-concurrency-and-idempotence.md
+      - name: Projections Management
+        href: event-store-client/projections.md
+      - name: Stream Metadata
+        href: event-store-client/stream-metadata.md
+      - name: User Management
+        href: event-store-client/users.md
+  - name: Event Sourcing
+    items:
+      - name: Event Sourcing Blueprints
+        href: event-store-client/blueprints.md
+      - name: Creating Read Models
+        href: event-store-client/readmodels.md
+- name: Old documentation
+  items:
+    - name: Common
+      items:
+        - name: Event
+          href: old_documentation/common/event.md
+        - name: Messaging
+          href: old_documentation/common/messaging.md
+    - name: Event Sourcing
+      items:
+        - name: Introduction
+          href: old_documentation/event-sourcing/introduction.md
+        - name: Working with Repositories
+          href: old_documentation/event-sourcing/repositories.md
+        - name: Inheritance with Aggregate Roots
+          href: old_documentation/event-sourcing/inheritance.md
+        - name: Interop Factories
+          href: old_documentation/event-sourcing/interop_factories.md
+        - name: Migration from v4 to v5
+          href: old_documentation/event-sourcing/migration.md
+    - name: Service Bus
+      items:
+        - name: Overview
+          href: old_documentation/service-bus/overview.md
+        - name: Message Buses
+          href: old_documentation/service-bus/message_bus.md
+        - name: Plugins
+          href: old_documentation/service-bus/plugins.md
+        - name: Async Message Producer
+          href: old_documentation/service-bus/async_message_producer.md
+        - name: Interop + Factories
+          href: old_documentation/service-bus/factories.md
