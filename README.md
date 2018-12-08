@@ -6,7 +6,7 @@ What follows is documentation for how to use and contribute to the Event Store d
 
 ### Documentation Theme
 
-If you would like to improve the theme for the documentation site, then you can find its repository [here](https://github.com/prooph/es-docs-template).
+If you would like to improve the theme for the documentation site, then you can find its repository [here](https://github.com/prooph/docs-template).
 
 ### Running DocFX Locally
 
@@ -20,7 +20,7 @@ This builds the site to the `/_site` folder and serves it at `http://localhost:8
 
 ### Running DocFX with Docker
 
-Assuming you have a directory `~/code/prooph` with 2 repositories there `documentation` and `es-docs-template`:
+Assuming you have a directory `~/code/prooph` with 2 repositories there `documentation` and `docs-template`:
 
 ```bash
 docker run -itv ~/code/prooph/:/tmp tsgkadot/docker-docfx:latest docfx build /tmp/documentation/docfx.json

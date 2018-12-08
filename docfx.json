@@ -271,7 +271,7 @@
     ],
     "template": [
       "default",
-      "../es-docs-template"
+      "../docs-template"
     ]
   }
 }
