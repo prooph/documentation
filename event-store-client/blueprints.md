@@ -416,5 +416,70 @@ Our repository has two methods: `saveAggregateRoot` and `getAggregateRoot`. If y
 
 If you want to publish your events to an event bus or message broker, you may want to inject this logic here or make use of an event dispatcher within the aggregate repository. The same goes for snapshots.
 
-Now that you know how implement event sourcing by yourself and as part of your domain model without any frameworks or libraries, how about a small excersice? Implement an additional method `getAggregateRootAsOf` which expected an additional `DateTimeImmutable` as argument and will return you an aggregate root with the state it had at that given time.
+```php
+   /**
+     * Returns null if no stream events can be found for aggregate root otherwise the reconstituted aggregate root
+     *
+     * @return Promise<?object>
+     */
+    public function getAggregateRootAsOff(string $aggregateId, \DateTimeImmutable $asOff, UserCredentials $credentials = null): Promise {
+        if ($asOff->getTimezone()->getName() !== 'UTC') {
+            $asOff = $asOff->setTimezone(new \DateTimeZone('UTC'));
+        }
+
+        return call(function () use ($aggregateId, $credentials, $asOff) {
+            $stream = $this->streamCategory . '-' . $aggregateId;
+            $start = 0;
+            $count = Consts::MAX_READ_SIZE;
+            do {
+                $events = [];
+                /** @var $streamEventsSlice StreamEventsSlice */
+                $streamEventsSlice = yield $this->eventStoreConnection
+                    ->readStreamEventsForwardAsync(
+                        $stream,
+                        $start,
+                        $count,
+                        true,
+                        $credentials
+                    );
+
+                if (!$streamEventsSlice->status()->equals(
+                    SliceReadStatus::success())
+                ) {
+                    return null;
+                }
+
+                $start = $streamEventsSlice->nextEventNumber();
+
+                foreach ($streamEventsSlice->events() as $event) {
+                    $domainEvent = $this->transformer->toDomainEvent($event);
+
+                    if ($domainEvent->createdAt() > $asOff) {
+                        break;
+                    }
+                    $events[] = $this->transformer->toDomainEvent($event);
+                }
+
+                if (isset($aggregateRoot)) {
+                    assert($aggregateRoot instanceof AggregateRoot);
+                    $aggregateRoot->replay($events);
+                } else {
+                    /** @var $className AggregateRoot */
+                    $className = $this->aggregateRootClassName;
+                    $aggregateRoot = $className::reconstituteFromHistory($events);
+                }
+            } while (!$streamEventsSlice->isEndOfStream());
+
+            if (!isset($aggregateRoot)) {
+                return null;
+            }
+
+            $aggregateRoot->setExpectedVersion(
+                $streamEventsSlice->lastEventNumber()
+            );
+
+            return new Success($aggregateRoot);
+        });
+    }
+```
  
