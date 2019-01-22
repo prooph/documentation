@@ -349,7 +349,7 @@ class AggregateRepository
                 $writeResult->nextExpectedVersion()
             );
             
-            return new Success($aggregateRoot);
+            return $aggregateRoot;
         });
     }
 
@@ -406,7 +406,7 @@ class AggregateRepository
                 $streamEventsSlice->lastEventNumber()
             );
     
-            return new Success($aggregateRoot);
+            return $aggregateRoot;
         });
     }
 }
@@ -415,6 +415,8 @@ class AggregateRepository
 Our repository has two methods: `saveAggregateRoot` and `getAggregateRoot`. If you paid attention, there is also the additional feature of disabling the optimistic concurrency checks.
 
 If you want to publish your events to an event bus or message broker, you may want to inject this logic here or make use of an event dispatcher within the aggregate repository. The same goes for snapshots.
+
+## If you want to load a historic version of your aggregate root
 
 ```php
    /**
@@ -427,7 +429,7 @@ If you want to publish your events to an event bus or message broker, you may wa
             $asOf = $asOff->setTimezone(new \DateTimeZone('UTC'));
         }
 
-        return call(function () use ($aggregateId, $credentials, $asOff) {
+        return call(function () use ($aggregateId, $credentials, $asOff): Generator {
             $stream = $this->streamCategory . '-' . $aggregateId;
             $start = 0;
             $count = Consts::MAX_READ_SIZE;
@@ -478,7 +480,7 @@ If you want to publish your events to an event bus or message broker, you may wa
                 $streamEventsSlice->lastEventNumber()
             );
 
-            return new Success($aggregateRoot);
+            return $aggregateRoot;
         });
     }
 ```
