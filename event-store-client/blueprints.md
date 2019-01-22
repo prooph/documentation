@@ -422,9 +422,9 @@ If you want to publish your events to an event bus or message broker, you may wa
      *
      * @return Promise<?object>
      */
-    public function getAggregateRootAsOff(string $aggregateId, \DateTimeImmutable $asOff, UserCredentials $credentials = null): Promise {
-        if ($asOff->getTimezone()->getName() !== 'UTC') {
-            $asOff = $asOff->setTimezone(new \DateTimeZone('UTC'));
+    public function getAggregateRootAsOf(string $aggregateId, \DateTimeImmutable $asOf, UserCredentials $credentials = null): Promise {
+        if ($asOf->getTimezone()->getName() !== 'UTC') {
+            $asOf = $asOff->setTimezone(new \DateTimeZone('UTC'));
         }
 
         return call(function () use ($aggregateId, $credentials, $asOff) {
@@ -454,7 +454,7 @@ If you want to publish your events to an event bus or message broker, you may wa
                 foreach ($streamEventsSlice->events() as $event) {
                     $domainEvent = $this->transformer->toDomainEvent($event);
 
-                    if ($domainEvent->createdAt() > $asOff) {
+                    if ($domainEvent->createdAt() > $asOf) {
                         break;
                     }
                     $events[] = $this->transformer->toDomainEvent($event);
