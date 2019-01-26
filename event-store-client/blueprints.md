@@ -459,7 +459,7 @@ If you want to publish your events to an event bus or message broker, you may wa
                     if ($domainEvent->createdAt() > $asOf) {
                         break;
                     }
-                    $events[] = $this->transformer->toDomainEvent($event);
+                    $events[] = $domainEvent;
                 }
 
                 if (isset($aggregateRoot)) {
