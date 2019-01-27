@@ -32,7 +32,7 @@ from the factory again and exchange it with the simple factory you used before.
 
 *Note: Each event store adapter allows you to set it up with a custom message factory. Please refer to the adapter documentation of your choice to get more information.*
 
-## Upasting on the fly
+## Upcasting on the fly
 
 Starting in v7 prooph offers an upcasting plugin for the event store. Setup is very easy:
 
