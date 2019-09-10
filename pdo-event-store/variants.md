@@ -124,3 +124,48 @@ transactions.
 
 Note: This could lead to problems using the event store, if you did not manage to handle the transaction handling accordingly.
 This is your problem and we will not provide any support for problems you encounter while doing so.
+
+### Using write locks
+
+In high-concurrent write scenarios it is possible that events are skipped when reading from the stream simultaneously.
+[Issue #189](https://github.com/prooph/pdo-event-store/issues/189) explains the background in more detail on why this is happening.
+
+In order to prevent this it is possible to apply a locking strategy when writing to an event stream.
+By default the `NoLockStrategy` does not conduct any form of locking. The `MysqlMetadataLockStrategy` uses MySQL
+metadata locks to ensure only one client at a time can write at the same stream. All default locking strategies
+`MysqlMetadataLockStrategy`, `MariaDbMetadataLockStrategy` and `PostgresAdvisoryLockStrategy` have an estimated loss
+of 50% write throughput in peak times compared to the `NoLockStrategy`.
+
+Changing the locking strategy depends on a few factors:
+- The selected stream strategy: the more events are written to the same database table the more likely this is an issue.
+  For example when using the `AggregateStreamStrategy` each aggregate has its own table, making this less likely an
+   issue (only when having lots of writes on the same aggregate respectively).
+- How the stream is read: if it is read at the same time as it is written, is it fine to miss a few events, etc ...
+
+### A note on Json
+
+MySql differs from the other vendors in a subtile manner which basicly is a result of the json specification itself. Json
+does not distuinguish between *integers* and *floats*, it just knowns a *number*. This means that when you send a float
+such as `2.0` to the store it will be stored by MySQL as integer `2`. While we have looked at ways to prevent this we
+decided it would become too complicated to support that (could be done with nested JSON_OBJECT calls, which strangely
+does store such value as-is).
+
+We think you can easily avoid this from becoming an issue by ensuring your events handle such differences.
+
+Example
+
+```php
+final class MySliderChanged extends AggregateChanged
+{
+    public static function with(MySlider $slider): self {
+        return self::occur((string) $dossierId, [
+            'value' => $slider->toNative(), // float
+        ]);
+    }
+
+    public function mySlider(): MySlider
+    {
+        return MySlider::from((float) $this->payload['value']); // use casting
+    }
+}
+```
