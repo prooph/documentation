@@ -1,5 +1,7 @@
 - name: Event Store v7
   items:
+    - name: Overview
+      href: event-store-v7/index.md
     - name: Tutorial
       items:
       - name: Introduction

@@ -10,7 +10,13 @@ The [Event Store](http://eventstore.org/) is a server implementation and the cli
 
 Generally speaking, the server implementation is a much more mature implementation and provides better performance due to its multi threading nature, but it requires more setup.
 
-There are plans for a new major release (prooph event-store v8) coming someday 2019.
-
 > [!NOTE]
 > If you are planning to use Event Store, you are required to read the official [Event Store documentation](https://eventstore.org/docs/). This guide will focus on the PHP client implementation.
+
+## What to chose?
+
+- If you need the better performance and server-side projections, use [Event Store](http://eventstore.org/).
+But keep in mind that you need write asynchronous code in PHP using [Amp](https://github.com/amphp/amp/).
+
+- If you need to maintain an existing stack of RDBMS and throw event-sourcing at it, event-store v7 is exactly what you want.
+There is little difference in performance, and there are no server-side projections. You don't need to write async code.

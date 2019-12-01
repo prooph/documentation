@@ -175,6 +175,11 @@
         "dest": "event-store-v7/projections"
       },
       {
+        "files": "index.md",
+        "src": "event-store-v7",
+        "dest": "event-store-v7/index"
+      },
+      {
         "files": "standard_projections.md",
         "src": "event-store-v7",
         "dest": "event-store-v7/standard_projections"

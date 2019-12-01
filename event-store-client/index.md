@@ -6,17 +6,22 @@ outputFileName: index.html
 
 This part covers async event store client connections and what to take into consideration.
 
-Prooph Event Store Client supports async non-blocking TCP connection to EventStore.
+Prooph Event Store Client supports async non-blocking TCP connection to [EventStore](http://eventstore.org/).
 
 All operations are handled fully asynchronously, returning an `Amp\Promise`.
 
 The `EventStoreConnection` maintains a full-duplex connection between the client and the Event Store server.
 
+> [!NOTE]
+> If you are looking an event-store with Postgres, MySQL or MariaDB as backend, refer to event-store v7.
+
 ## PHP Extensions
 
-You need the [allegro/php-protobuf](https://github.com/allegro/php-protobuf/) PHP extension.
+The protobuf extension from Google is recommended, however it is not required.
 
-The protobuf extension from Google will not work, because it doesn't support proto2, only proto3.
+When this extension is missing, the client will fallback to use google/protobuf installable via composer.
+
+The extension allegro/php-protobuf is not compatible.
 
 Additional extensions are only needed if your app necessitates a high numbers of concurrent socket connections.
 
