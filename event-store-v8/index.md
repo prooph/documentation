@@ -8,6 +8,8 @@ As of now there are 2 major v8 implementations. Both are connecting to [EventSto
 
 ## Event-Store-Client
 
+Docs: [Documentation](~/event-store-client/index.md)
+
 Github: [https://github.com/prooph/event-store-client/](https://github.com/prooph/event-store-client/)
 
 This supports async non-blocking TCP connection to [EventStore](http://eventstore.org/).
@@ -17,6 +19,8 @@ This library is written using [Amp](https://github.com/amphp/amp/) and works out
 If you never wrote async PHP code, it's recommended to look at the [Amp Website](https://amphp.org/) first.
 
 ## Event-Store-HTTP-Client
+
+Docs: coming soon
 
 Github: [https://github.com/prooph/event-store-http-client/](https://github.com/prooph/event-store-http-client/)
 
