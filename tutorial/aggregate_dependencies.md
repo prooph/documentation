@@ -1,3 +1,7 @@
+---
+outputFileName: index.html
+---
+
 # Aggregate Dependencies
 
 In the previous chapters we learned that an aggregate protects invariants and records an event for each state transition.

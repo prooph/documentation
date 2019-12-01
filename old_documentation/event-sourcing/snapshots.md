@@ -1,5 +1,5 @@
 ---
-outputFileName: snapshots.html
+outputFileName: index.html
 ---
 
 # Snapshots

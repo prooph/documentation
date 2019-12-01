@@ -1,5 +1,5 @@
 ---
-outputFileName: event.html
+outputFileName: index.html
 ---
 
 # Event

@@ -1,3 +1,7 @@
+---
+outputFileName: index.html
+---
+
 # Event Sourcing Basics
 
 Event Sourcing focuses on business processes. Every write operation in a domain model causes

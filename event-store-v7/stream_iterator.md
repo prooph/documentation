@@ -1,5 +1,5 @@
 ---
-outputFileName: stream_iterator.html
+outputFileName: index.html
 ---
 
 # StreamIterator

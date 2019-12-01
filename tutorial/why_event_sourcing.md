@@ -1,3 +1,7 @@
+---
+outputFileName: index.html
+---
+
 # Why Event Sourcing?
 
 Event Sourcing is a fascinating topic, but the learning curve is steep. This is not because Event Sourcing is a complex

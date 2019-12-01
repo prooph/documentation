@@ -1,5 +1,5 @@
 ---
-outputFileName: migration.html
+outputFileName: index.html
 ---
 
 # Migration from v4 to v5

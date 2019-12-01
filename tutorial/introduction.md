@@ -1,3 +1,7 @@
+---
+outputFileName: index.html
+---
+
 # Introduction
 
 In the following pages, we will walk through all prooph components step by step

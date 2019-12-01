@@ -1,5 +1,5 @@
 ---
-outputFileName: messaging.html
+outputFileName: index.html
 ---
 
 # Messaging

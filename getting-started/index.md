@@ -1,5 +1,5 @@
 ---
-outputFileName: install.html
+outputFileName: index.html
 ---
 
 # Step 1 - Install, run, and write your first event

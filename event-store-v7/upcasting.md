@@ -1,5 +1,5 @@
 ---
-outputFileName: upcasting.html
+outputFileName: index.html
 ---
 
 # Upcasting

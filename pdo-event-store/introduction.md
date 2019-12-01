@@ -1,5 +1,5 @@
 ---
-outputFileName: introduction.html
+outputFileName: index.html
 ---
 
 # Introduction

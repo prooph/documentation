@@ -87,17 +87,17 @@
       {
         "files": "index.md",
         "src": "getting-started",
-        "dest": "getting-started"
+        "dest": "getting-started/step-1"
       },
       {
         "files": "reading-subscribing-events.md",
         "src": "getting-started",
-        "dest": "getting-started/reading-subscribing-events"
+        "dest": "getting-started/step-2-reading-subscribing-events"
       },
       {
         "files": "projections.md",
         "src": "getting-started",
-        "dest": "getting-started/projections"
+        "dest": "getting-started/step-3-projections"
       },
       {
         "files": "index.md",
@@ -107,37 +107,37 @@
       {
         "files": "introduction.md",
         "src": "tutorial",
-        "dest": "tutorial"
+        "dest": "event-store-v7/tutorial/introduction"
       },
       {
         "files": "why_event_sourcing.md",
         "src": "tutorial",
-        "dest": "tutorial/why_event_sourcing"
+        "dest": "event-store-v7/tutorial/why_event_sourcing"
       },
       {
         "files": "event_sourcing_basics.md",
         "src": "tutorial",
-        "dest": "tutorial/event_sourcing_basics"
+        "dest": "event-store-v7/tutorial/event_sourcing_basics"
       },
       {
         "files": "testing_aggregates.md",
         "src": "tutorial",
-        "dest": "tutorial/testing_aggregates"
+        "dest": "event-store-v7/tutorial/testing_aggregates"
       },
       {
         "files": "aggregate_dependencies.md",
         "src": "tutorial",
-        "dest": "tutorial/aggregate_dependencies"
+        "dest": "event-store-v7/tutorial/aggregate_dependencies"
       },
       {
         "files": "process_manager.md",
         "src": "tutorial",
-        "dest": "tutorial/process_manager"
+        "dest": "event-store-v7/tutorial/process_manager"
       },
       {
         "files": "blueprints.md",
         "src": "tutorial",
-        "dest": "tutorial/blueprints"
+        "dest": "event-store-v7/tutorial/blueprints"
       },
       {
         "files": "event.md",
@@ -152,7 +152,7 @@
       {
         "files": "introduction.md",
         "src": "event-store-v7",
-        "dest": "event-store-v7"
+        "dest": "event-store-v7/introduction"
       },
       {
         "files": "event_store_plugins.md",
@@ -177,7 +177,7 @@
       {
         "files": "index.md",
         "src": "event-store-v7",
-        "dest": "event-store-v7/index"
+        "dest": "event-store-v7/overview"
       },
       {
         "files": "standard_projections.md",
@@ -197,7 +197,7 @@
       {
         "files": "introduction.md",
         "src": "pdo-event-store",
-        "dest": "pdo-event-store"
+        "dest": "pdo-event-store/introduction"
       },
       {
         "files": "variants.md",
@@ -212,7 +212,7 @@
       {
         "files": "introduction.md",
         "src": "old_documentation/event-sourcing",
-        "dest": "old_documentation/event-sourcing"
+        "dest": "old_documentation/event-sourcing/introduction"
       },
       {
         "files": "repositories.md",
@@ -242,7 +242,7 @@
       {
         "files": "overview.md",
         "src": "old_documentation/service-bus",
-        "dest": "old_documentation/service-bus"
+        "dest": "old_documentation/service-bus/overview"
       },
       {
         "files": "message_bus.md",
@@ -267,41 +267,52 @@
       {
         "files": "index.md",
         "src": "old_documentation/snapshot-store",
-        "dest": "old_documentation/snapshot-store"
+        "dest": "old_documentation/snapshot-store/overview"
       },
       {
         "files": "interop_factories.md",
         "src": "old_documentation/snapshot-store/arangodb",
-        "dest": "old_documentation/snapshot-store/arangodb"
+        "dest": "old_documentation/snapshot-store/arangodb/interop_factories"
       },
       {
         "files": "introduction.md",
         "src": "old_documentation/snapshot-store/arangodb",
-        "dest": "old_documentation/snapshot-store/arangodb"
+        "dest": "old_documentation/snapshot-store/arangodb/introduction"
+      },
+      {
+        "files": "introduction.md",
+        "src": "old_documentation/snapshot-store/memcached",
+        "dest": "old_documentation/snapshot-store/memcached/introduction"
       },
       {
         "files": "interop_factories.md",
         "src": "old_documentation/snapshot-store/memcached",
-        "dest": "old_documentation/snapshot-store/memcached"
+        "dest": "old_documentation/snapshot-store/memcached/interop_factories"
       },
       {
         "files": "introduction.md",
         "src": "old_documentation/snapshot-store/mongodb",
-        "dest": "old_documentation/snapshot-store/mongodb"
-      },{
+        "dest": "old_documentation/snapshot-store/mongodb/introduction"
+      },
+      {
+        "files": "interop_factories.md",
+        "src": "old_documentation/snapshot-store/mongodb",
+        "dest": "old_documentation/snapshot-store/mongodb/interop_factories"
+      },
+      {
         "files": "interop_factories.md",
         "src": "old_documentation/snapshot-store/pdo",
-        "dest": "old_documentation/snapshot-store/pdo"
+        "dest": "old_documentation/snapshot-store/pdo/interop_factories"
       },
       {
         "files": "introduction.md",
         "src": "old_documentation/snapshot-store/pdo",
-        "dest": "old_documentation/snapshot-store/pdo"
+        "dest": "old_documentation/snapshot-store/pdo/introduction"
       },
       {
         "files": "index.md",
         "src": "old_documentation/snapshotter",
-        "dest": "old_documentation/snapshotter"
+        "dest": "old_documentation/snapshotter/overview"
       }
     ],
     "resource": [

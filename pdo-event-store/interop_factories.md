@@ -1,5 +1,5 @@
 ---
-outputFileName: interop_factories.html
+outputFileName: index.html
 ---
 
 # Interop Factories

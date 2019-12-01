@@ -1,3 +1,7 @@
+---
+outputFileName: index.html
+---
+
 # Process Managers
 
 This tutorial part is not ready yet.

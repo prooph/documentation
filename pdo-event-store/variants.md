@@ -1,5 +1,5 @@
 ---
-outputFileName: variants.html
+outputFileName: index.html
 ---
 
 # Variants

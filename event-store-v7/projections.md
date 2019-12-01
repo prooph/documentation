@@ -1,5 +1,5 @@
 ---
-outputFileName: projections.html
+outputFileName: index.html
 ---
 
 # Projections

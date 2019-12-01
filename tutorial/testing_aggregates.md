@@ -1,3 +1,7 @@
+---
+outputFileName: index.html
+---
+
 # Testing Aggregates
 
 **Event Sourcing makes it easy to test aggregates**. In this chapter we will learn why. Don't underestimate this advantage.

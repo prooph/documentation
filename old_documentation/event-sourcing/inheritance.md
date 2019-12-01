@@ -1,5 +1,5 @@
 ---
-outputFileName: inheritance.html
+outputFileName: index.html
 ---
 
 # Inheritance with Aggregate Roots

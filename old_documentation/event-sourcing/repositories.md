@@ -1,5 +1,5 @@
 ---
-outputFileName: repositories.html
+outputFileName: index.html
 ---
 
 # Working with Repositories

@@ -1,5 +1,5 @@
 ---
-outputFileName: event_store_plugins.html
+outputFileName: index.html
 ---
 
 # Plugins & Extensions
