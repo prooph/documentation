@@ -235,6 +235,11 @@
         "dest": "old_documentation/event-sourcing/interop_factories"
       },
       {
+        "files": "snapshots.md",
+        "src": "old_documentation/event-sourcing",
+        "dest": "old_documentation/event-sourcing/snapshots"
+      },
+      {
         "files": "overview.md",
         "src": "old_documentation/service-bus",
         "dest": "old_documentation/service-bus"
@@ -258,8 +263,46 @@
         "files": "factories.md",
         "src": "old_documentation/service-bus",
         "dest": "old_documentation/service-bus/factories"
+      },
+      {
+        "files": "index.md",
+        "src": "old_documentation/snapshot-store",
+        "dest": "old_documentation/snapshot-store"
+      },
+      {
+        "files": "interop_factories.md",
+        "src": "old_documentation/snapshot-store/arangodb",
+        "dest": "old_documentation/snapshot-store/arangodb"
+      },
+      {
+        "files": "introduction.md",
+        "src": "old_documentation/snapshot-store/arangodb",
+        "dest": "old_documentation/snapshot-store/arangodb"
+      },
+      {
+        "files": "interop_factories.md",
+        "src": "old_documentation/snapshot-store/memcached",
+        "dest": "old_documentation/snapshot-store/memcached"
+      },
+      {
+        "files": "introduction.md",
+        "src": "old_documentation/snapshot-store/mongodb",
+        "dest": "old_documentation/snapshot-store/mongodb"
+      },{
+        "files": "interop_factories.md",
+        "src": "old_documentation/snapshot-store/pdo",
+        "dest": "old_documentation/snapshot-store/pdo"
+      },
+      {
+        "files": "introduction.md",
+        "src": "old_documentation/snapshot-store/pdo",
+        "dest": "old_documentation/snapshot-store/pdo"
+      },
+      {
+        "files": "index.md",
+        "src": "old_documentation/snapshotter",
+        "dest": "old_documentation/snapshotter"
       }
-
     ],
     "resource": [
       {

@@ -98,6 +98,8 @@
           href: old_documentation/event-sourcing/repositories.md
         - name: Inheritance with Aggregate Roots
           href: old_documentation/event-sourcing/inheritance.md
+        - name: Snapshots
+          herf: old_documentation/event-sourcing/snapshots.md
         - name: Interop Factories
           href: old_documentation/event-sourcing/interop_factories.md
         - name: Migration from v4 to v5
@@ -114,3 +116,35 @@
           href: old_documentation/service-bus/async_message_producer.md
         - name: Interop + Factories
           href: old_documentation/service-bus/factories.md
+    - name: Snapshotter
+      items:
+        - name: Overview
+          href: old_documentation/snapshotter/index.md
+    - name: Snapshot Store
+      items:
+        - name: Overview
+          href: old_documentation/snapshot-store/index.md
+        - name: ArangoDB
+          items:
+            - name: Introduction
+              href: old_documentation/snapshot-store/arangodb/introduction.md
+            - name: Interop Factories
+              href: old_documentation/snapshot-store/arangodb/interop_factories.md
+        - name: Memcached
+          items:
+            - name: Introduction
+              href: old_documentation/snapshot-store/memcached/introduction.md
+            - name: Interop Factories
+              href: old_documentation/snapshot-store/memcached/interop_factories.md
+        - name: MongoDB
+          items:
+            - name: Introduction
+              href: old_documentation/snapshot-store/mongodb/introduction.md
+            - name: Interop Factories
+              href: old_documentation/snapshot-store/mongodb/interop_factories.md
+        - name: PDO
+          items:
+            - name: Introduction
+              href: old_documentation/snapshot-store/pdo/introduction.md
+            - name: Interop Factories
+              href: old_documentation/snapshot-store/pdo/interop_factories.md
