@@ -419,7 +419,7 @@ If you want to publish your events to an event bus or message broker, you may wa
 ## If you want to load a historic version of your aggregate root
 
 ```php
-   /**
+    /**
      * Returns null if no stream events can be found for aggregate root otherwise the reconstituted aggregate root
      *
      * @return Promise<?object>
@@ -456,7 +456,7 @@ If you want to publish your events to an event bus or message broker, you may wa
                 foreach ($streamEventsSlice->events() as $event) {
                     $domainEvent = $this->transformer->toDomainEvent($event);
 
-                    if ($domainEvent->createdAt() > $asOf) {
+                    if ($domainEvent->createdAt() > $asOff) {
                         break;
                     }
                     $events[] = $domainEvent;

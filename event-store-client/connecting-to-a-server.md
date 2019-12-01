@@ -12,6 +12,11 @@ All operations are fully asynchronous and return an `Amp\Promise`. If you need t
 
 To get maximum performance from the connection we recommend that you use it asynchronously.
 
+## Default Ports
+
+`1113` - TCP Port (your connection reading and writing goes here)
+`2113` - HTTP Port (your connection interacting with http api goes here)
+
 ## Creating a Connection
 
 The `EventStoreConnectionFactory` class uses the static `create*` methods to create a new connection. All methods allow you to optionally specify a name for the connection, which the connection returns when it raises events (see [Connection Events](#connection-events)).

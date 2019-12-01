@@ -69,17 +69,11 @@ There is a [driver](https://github.com/swoole/library/blob/master/src/Swoole/Dri
 composer require prooph/event-store-client
 ```
 
-To install allegro/php-protobuf:
+To install google/protobuf extension (not needed):
 
-    git clone https://github.com/allegro/php-protobuf
-    cd php-protobuf
-    git checkout v0.12.3
-    phpize
-    ./configure
-    make
-    sudo make install
+    sudo pecl install protobuf
 
-    add "extension=protobuf.so" to your php.ini
+And then add `extension=protobuf.so` to your php.ini
 
 ## Unit tests
 
