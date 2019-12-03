@@ -23,7 +23,7 @@ There are three ways to interact with Event Store:
 [Install](https://github.com/prooph/event-store-client/) using composer, add it to your project:
 
 ```bash
-composer require prooph/event-store-client
+$ composer require prooph/event-store-client
 ```
 
 * * *
@@ -66,7 +66,7 @@ $connection = EventStoreSyncConnectionFactory::createFromUri(
 > [!NEXT]
 > In this example we used the `EventStoreAsyncConnectionFactory::createFromUri()` method but others are available.
 
-***
+* * *
 
 ## Writing Events to an Event Stream
 

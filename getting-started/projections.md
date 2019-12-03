@@ -12,40 +12,39 @@ When running a projection, you can choose whether the query should run and give 
 
 You enable projections with the command line argument `--run-projections`. For example, the command below enables all projection modes (system and user-defined):
 
-#### [Windows](#tab/tabid-1)
-
-```powershell
-EventStore.ClusterNode.exe --run-projections=all --start-standard-projections=true
-```
-
-To disable them again, run:
-
-```powershell
-EventStore.ClusterNode.exe --run-projections=none
-```
-
-### [Linux](#tab/tabid-2)
-
-Add `EVENTSTORE_RUN_PROJECTIONS=All` and `EVENTSTORE_START_STANDARD_PROJECTIONS=true` to your environment variables, or the _/etc/eventstore/eventstore.conf_ configuration file and start Event Store:
-
-```bash
-sudo systemctl start eventstore
-```
-
-To disable them again, change the values to `EVENTSTORE_RUN_PROJECTIONS=none`.
-
-### [Docker](#tab/tabid-3)
+### [Docker](#tab/tabid-1)
 
 The Event Store Docker image has projections enabled by default, but you need to enable standard projections:
 
 ```bash
-docker run --name eventstore-node -it -p 2113:2113 -p 1113:1113 -e EVENTSTORE_RUN_PROJECTIONS=All -e EVENTSTORE_START_STANDARD_PROJECTIONS=true eventstore/eventstore
+$ docker run --name eventstore-node -it -p 2113:2113 -p 1113:1113 -e EVENTSTORE_RUN_PROJECTIONS=All -e EVENTSTORE_START_STANDARD_PROJECTIONS=true eventstore/eventstore
 ```
 
 To disable them again:
 
 ```bash
-docker run --name eventstore-node -it -p 2113:2113 -p 1113:1113 -e EVENTSTORE_RUN_PROJECTIONS=None eventstore/eventstore
+$ docker run --name eventstore-node -it -p 2113:2113 -p 1113:1113 -e EVENTSTORE_RUN_PROJECTIONS=None eventstore/eventstore
+```
+### [Linux](#tab/tabid-2)
+
+Add `EVENTSTORE_RUN_PROJECTIONS=All` and `EVENTSTORE_START_STANDARD_PROJECTIONS=true` to your environment variables, or the _/etc/eventstore/eventstore.conf_ configuration file and start Event Store:
+
+```bash
+$ sudo systemctl start eventstore
+```
+
+To disable them again, change the values to `EVENTSTORE_RUN_PROJECTIONS=none`.
+
+### [Windows](#tab/tabid-3)
+
+```powershell
+$ EventStore.ClusterNode.exe --run-projections=all --start-standard-projections=true
+```
+
+To disable them again, run:
+
+```powershell
+$ EventStore.ClusterNode.exe --run-projections=none
 ```
 
 * * *

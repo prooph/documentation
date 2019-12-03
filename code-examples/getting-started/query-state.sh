@@ -1,1 +1,1 @@
-curl -i http://localhost:2113/projection/xbox-one-s-counter/state
+$ curl -i http://localhost:2113/projection/xbox-one-s-counter/state

@@ -11,7 +11,7 @@ prepare them for the future.
 
 ## Objectives of This Tutorial
 
-In the prooph ecosystem everything is bound together by messages, so when you want to get started with prooph components
+In the prooph ecosystem, everything is bound together by messages, so when you want to get started with prooph components
 you should know the basic building block - **prooph messages**. Once you know how they work, we give a short overview
 of CQRS and Event Sourcing and why messages play an important role in this architecture.
 
@@ -23,14 +23,15 @@ their Linux version only.
 
 ## Prooph Messages
 
-Every prooph component deals with messages in one way or another, so we've put them
-in a common package.
+Every prooph component deals with messages in one way or another, so we've put them in a common package.
 
 Let's get our hands dirty and install the package. First, create an empty folder called `prooph_tutorial` and `cd` into it.
 
 ### Require prooph/common
 
-`$ composer require prooph/common`
+```sh
+$ composer require prooph/common
+```
 
 This command will run composer, generating a fresh `composer.json` for us, adding `prooph/common`
 as the first package to our new project.

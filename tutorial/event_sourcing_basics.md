@@ -33,7 +33,7 @@ Here is a simplified result of the event storming² session:
 
 As you can see, we have a variety of different events. Not only do we have events that are caused by the customer while
 interacting with their shopping basket but also events caused by changes in other customers' shopping sessions. We even have
-two "error events" defined: *QuantityStockConflictDetected, ShoppingSessionTimedOut*.
+two "error events" defined: *QuantityStockConflictDetected* and *ShoppingSessionTimedOut*.
 
 ## Defining Events
 
@@ -134,7 +134,7 @@ final class ShoppingSessionStarted extends AggregateChanged
 
 ```
 Here we extend the base event class `AggregateChanged` from the `prooph/event-sourcing` package.
-We will discuss aggregates more in a minute, but, first, let's have a look at what the base event class has to offer:
+We will discuss aggregates more in a minute but, first, let's have a look at what the base event class has to offer:
 
 ```php
 <?php
