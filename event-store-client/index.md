@@ -21,7 +21,7 @@ The protobuf extension from Google is recommended, however it is not required.
 
 When this extension is missing, the client will fallback to use google/protobuf installable via composer.
 
-The extension allegro/php-protobuf is not compatible.
+The `allegro/php-protobuf` extension is **not** compatible.
 
 Additional extensions are only needed if your app necessitates a high numbers of concurrent socket connections.
 
@@ -71,14 +71,18 @@ There is a [driver](https://github.com/swoole/library/blob/master/src/Swoole/Dri
 ## Client Installation
 
 ```bash
-composer require prooph/event-store-client
+$ composer require prooph/event-store-client
 ```
 
 To install google/protobuf extension (not needed):
 
-    sudo pecl install protobuf
+```bash
+$ sudo pecl install protobuf
+```
 
 And then add `extension=protobuf.so` to your php.ini
+
+Please follow [the official documention](https://github.com/protocolbuffers/protobuf/tree/master/php#installation) in order to read alternative installation options.
 
 ## Unit tests
 
@@ -104,4 +108,4 @@ Before next run, restart the server. This way you can always start with a clean 
 
 The next part covers reading events from a stream.
 
--   [Step 1 - Install, run, and write your first event](~/getting-started/install.md)
+-   [Step 1 - Install, run, and write your first event](~/getting-started/index.md)

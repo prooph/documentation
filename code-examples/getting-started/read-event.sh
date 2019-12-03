@@ -1,4 +1,4 @@
-curl -i http://127.0.0.1:2113/streams/newstream/0 -H "Accept: application/json"
+$ curl -i http://127.0.0.1:2113/streams/newstream/0 -H "Accept: application/json"
 
 HTTP/1.1 200 OK
 Access-Control-Allow-Methods: GET, OPTIONS

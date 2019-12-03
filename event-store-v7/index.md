@@ -4,16 +4,20 @@ outputFileName: index.html
 
 # Overview
 
-Prooph Event Store is capable of persisting event messages that are organized in streams. Prooph\EventStore\EventStore itself is a facade for different persistence adapters (see the list below) and adds event-driven hook points for Prooph\EventStore\Plugin\Plugins which make the Event Store highly customizable.
+Prooph Event Store is capable of persisting event messages that are organized in streams. `Prooph\EventStore\EventStore` itself is a facade for different persistence adapters (see the list below) and adds event-driven hook points for `Prooph\EventStore\Plugin\Plugins` which make the Event Store highly customizable.
 
 > [!NOTE]
-> If you are looking a client for [EventStore](http://eventstore.org) and no RDBMS backend, refer to event-store v8.
+> If you are looking for a client of [EventStore](http://eventstore.org) and no RDBMS backend, refer to event-store v8.
 
 ## Installation
 
-You can install prooph/event-store via composer by adding "prooph/event-store": "^7.0" as requirement to your composer.json.
+You can install `prooph/event-store` via composer by running the following command:
 
-## Available persistent implementations
+```sh
+$ composer require prooph/event-store
+````
+
+## Available persistence implementations
 
 - [PDO](https://github.com/prooph/pdo-event-store) - stable
 

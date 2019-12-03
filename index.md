@@ -13,10 +13,10 @@ Generally speaking, the server implementation is a much more mature implementati
 > [!NOTE]
 > If you are planning to use Event Store, you are required to read the official [Event Store documentation](https://eventstore.org/docs/). This guide will focus on the PHP client implementation.
 
-## What to chose?
+## What to choose?
 
 - If you need the better performance and server-side projections, use [Event Store](http://eventstore.org/).
-But keep in mind that you need write asynchronous code in PHP using [Amp](https://github.com/amphp/amp/).
+But keep in mind that you will need to write asynchronous code in PHP using [Amp](https://github.com/amphp/amp/).
 
 - If you need to maintain an existing stack of RDBMS and throw event-sourcing at it, event-store v7 is exactly what you want.
-There is little difference in performance, and there are no server-side projections. You don't need to write async code.
+There is little differences in performance, and there are no server-side projections. You don't need to write async code.
