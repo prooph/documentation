@@ -59,12 +59,12 @@ declare(strict_types=1);
 namespace Acme;
 
 use Acme\DomainEvent;
-use Prooph\EventStoreClient\EventData;
-use Prooph\EventStoreClient\EventId;
-use Prooph\EventStoreClient\ResolvedEvent;
-use Prooph\EventStoreClient\Util\Json;
+use Prooph\EventStore\ResolvedEvent;
+use Prooph\EventStore\Util\Json;
+use Prooph\EventStore\EventData;
+use Prooph\EventStore\EventId;
 
-class MessageTransformer
+final class MessageTransformer
 {
     /**
      * key = event type
@@ -139,7 +139,7 @@ declare(strict_types=1);
 
 namespace Acme;
 
-use Prooph\EventStoreClient\ExpectedVersion;
+use Prooph\EventStore\ExpectedVersion;
 
 abstract class AggregateRoot
 {
@@ -207,7 +207,7 @@ abstract class AggregateRoot
     /**
      * Replay past events
      *
-     * @param DomainEvent[]
+     * @param DomainEvent[] $historyEvents
      */
     public function replay(array $historyEvents): void
     {
@@ -253,10 +253,10 @@ protected function apply(DomainEvent $event): void
         $this->aggregateId = $event->aggregateId();
         $this->username = $event->username();
         $this->email = $event->email();
-        
+
         return;
     }
-    
+
     // other events
 }
 ```
