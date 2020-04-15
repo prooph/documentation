@@ -91,9 +91,13 @@ This stream strategy is slightly less performant then the aggregate stream strat
 
 You need to setup the database table yourself when using this strategy. An example script to do that can be [found here](https://github.com/prooph/proophessor-do/blob/master/scripts/create_event_streams.php).
 
-#### Using `SingleStreamStrategy` with projections
+#### Using `SingleStreamStrategy` with projections (on MySQL)
 
-Because the `SingleStreamStrategy` forces a custom aggregate id/type based index for all queries, every single poll of the database by each projection will casuse a full table scan. To aviod this, you can use the `SingleStreamStrategy` for event store reads, but use the `SimpleStreamStrategy` for projections. See [this issue for more infomation](https://github.com/prooph/pdo-event-store/issues/224).
+Because the `SingleStreamStrategy` forces a custom aggregate id/type based index for all queries, every single poll of the database by each projection will casuse a full table scan. To avoid this, you can use the `SingleStreamStrategy` for event store reads, but use the `SimpleStreamStrategy` for projections. 
+
+You can do this by configuring two different event stores, a `default` using the `SingleStreamStrategy` (for example, named `mysql` and a projection one using `SimpleStreamStrategy` (for example, named `mysql_projections`). You can then instruct your frameworks DI to build projectors using the `mysql_projections` store.
+
+See [this issue for more infomation](https://github.com/prooph/pdo-event-store/issues/224).
 
 ### SimpleStreamStrategy
 
