@@ -85,6 +85,11 @@
         "dest": "event-store-client/read-models"
       },
       {
+        "files": "querying-event-store.md",
+        "src": "event-store-client",
+        "dest": "event-store-client/querying-event-store"
+      },
+      {
         "files": "index.md",
         "src": "getting-started",
         "dest": "getting-started/step-1"

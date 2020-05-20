@@ -4,7 +4,7 @@ outputFileName: index.html
 
 # User Management
 
-The Event Store Client API includes helper methods that use the HTTP API to allow for the management of users. This document describes the methods found in the `UsersManager` class.
+The Event Store Client API includes helper methods that use the HTTP API to allow for the management of users. This document describes the methods found in the `\Prooph\EventStore\Async\UserManagement\UsersManager` implementations.
 
 ## Methods
 
@@ -16,10 +16,10 @@ Creates a user, the credentials for this operation must be a member of the `$adm
 createUserAsync(
     string $login,
     string $fullName,
-    string[] $groups,
+    list<string> $groups,
     string $password,
     ?UserCredentials $userCredentials = null
-): Promise
+): Promise<void>
 ```
 
 ### Disable a User
@@ -30,7 +30,7 @@ Disables a user, the credentials for this operation must be a member of the `$ad
 disableAsync(
     string $login,
     ?UserCredentials userCredentials = null
-): Promise
+): Promise<void>
 ```
 
 ### Enable a User
@@ -41,18 +41,20 @@ Enables a user, the credentials for this operation must be a member of the `$adm
 enableAsync(
     string $login,
     ?UserCredentials userCredentials = null
-): Promise
+): Promise<void>
 ```
 
 ### Delete a User
 
 Deletes (non-recoverable) a user, the credentials for this operation must be a member of the `$admins` group. If you prefer this action to be recoverable, disable the user as opposed to deleting the user.
 
+Throws `\Prooph\EventStoreClient\Exception\UserCommandFailed` when server returns an error. 
+
 ```php
 deleteUserAsync(
     string $login,
     ?UserCredentials userCredentials = null
-): Promise
+): Promise<void>
 ```
 
 ### List all Users
@@ -62,7 +64,7 @@ Lists all users.
 ```php
 listAllAsync(
     ?UserCredentials userCredentials = null
-): Promise<UserDetails[]>
+): Promise<list<UserDetails>>
 ```
 
 ### Get Details of User
@@ -90,10 +92,24 @@ getUserAsync(
 updateUserAsync(
     string $login,
     string $fullName,
-    string[] $groups,
+    list<string> $groups,
     ?UserCredentials $userCredentials = null
-): Promise
+): Promise<void>
 ```
+
+### Change User Password
+
+Change the password of the specified user. The credentials doing this operation must be part of the `$admins` group.
+
+```php
+changePasswordAsync(
+    string $login,
+    string $oldPassword,
+    string $newPassword,
+    ?UserCredentials $userCredentials = null
+): Promise<void>
+```
+
 
 ### Reset User Password
 
@@ -104,5 +120,5 @@ resetPasswordAsync(
     string $login,
     string $newPassword,
     ?UserCredentials $userCredentials = null
-): Promise
+): Promise<void>
 ```
