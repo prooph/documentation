@@ -4,7 +4,7 @@ outputFileName: index.html
 
 # Persistent Subscriptions Management
 
-The Event Store Client API includes helper methods that use the HTTP API to allow you to manage persistent subscriptions. This document describes the methods found in the `PersistentSubscriptionsManager` class.
+The Event Store Client API includes helper methods that use the HTTP API to allow you to manage persistent subscriptions. This document describes the methods found in the `\Prooph\EventStore\Async\PersistentSubscriptions\PersistentSubscriptionsManager` implementations.
 
 ## Methods
 
@@ -16,7 +16,7 @@ Returns information about the persistent subscription for a stream you specify w
 public function list(
     ?string $stream = null,
     ?UserCredentials $userCredentials = null
-): Promise<PersistentSubscriptionDetails[]>
+): Promise<list<PersistentSubscriptionDetails>>
 ```
 
 ### Get information for a persistent subscription for a stream

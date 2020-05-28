@@ -76,6 +76,8 @@
         href: event-store-client/stream-metadata.md
       - name: User Management
         href: event-store-client/users.md
+      - name: Query Management
+        href: event-store-client/querying-event-store.md
   - name: Event Sourcing
     items:
       - name: Event Sourcing Blueprints
