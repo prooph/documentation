@@ -15,7 +15,7 @@ c) Write a script that subscribes to it.
 * * *
 
 Your event streams should be organized as one stream per aggregate. If you have 5 users in your system and the aggregate ids are simply `1`, `2`, `3`, `4`, `5`, then you may have 5 streams with these names:
-`user-1`, `user-2`, `user-3`, `user-4`, `user-5`.
+`user-1`, `user-2`, `user-3`, `user-4`, `user-5`. Your stream name (before id) **cannot contain dashes by default** because eventstore use them with this pattern `aggregateCategory-{id}` (id can contain dashes). Learn [more here](https://eventstore.com/docs/projections/system-projections/index.html?tabs=tabid-5).
 
 By enabling the `$by_category` projection, you will create another stream called `$ce-user` which will contain all events of all your user streams. The data will not be duplicated though, only a link to the original event will be created.
 
@@ -56,7 +56,9 @@ declare(strict_types=1);
 namespace Acme;
 
 use Amp\Loop;
+use Prooph\EventStore\SubscriptionDropReason;
 use Prooph\EventStoreClient\EventStoreConnectionFactory;
+use Prooph\EventStoreClient\Internal\EventStorePersistentSubscription;
 use Prooph\EventStoreClient\Uri;
 
 Loop::run(function () {
@@ -71,9 +73,16 @@ Loop::run(function () {
     yield $connection->connectToPersistentSubscriptionAsync(
         '$ce-user',
         'mysql-read-model',
-        new UserEventAppeared(
+        \Closure::fromCallable(new UserEventAppeared(
             "host=127.0.0.1 user=username password=password db=test"
-        )
+        )),
+        function (
+            EventStorePersistentSubscription $eventStorePersistentSubscription,
+            SubscriptionDropReason $subscriptionDropReason,
+            \Throwable $e
+        ) {
+            throw new \Exception('An error occured', 0, $e);
+        }
     );
 });
 ```
@@ -108,9 +117,9 @@ class UserEventAppeared
         ?int $retryCount = null
     ): Promise
     {
-        switch ($resolvedEvent->originalEvent()->eventType()) {
+        switch ($resolvedEvent->event()->eventType()) {
             case 'user-registered':
-                $data = $resolvedEvent->originalEvent()->data();
+                $data = $resolvedEvent->event()->data();
                 $id = $data['id'];
                 $name = $data['name'];
                 $email = $data['email'];
@@ -125,6 +134,10 @@ class UserEventAppeared
                 // ignore
                 break;
         }
+        
+        // In case of non-async process here, you can also just return a success.
+        // return new Success();
+        // But here we yield instead
     }
 }
 ```
