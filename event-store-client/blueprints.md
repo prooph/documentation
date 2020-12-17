@@ -8,7 +8,7 @@ In fact, we recommend not using any framework or library as part of your domain 
 
 The demo presented here is meant to be a blueprint for a homegrown implementation.
 
-We are showing here an OOP apprach. To start with the bare minimum, we need 4 different things:
+We are showing here an OOP approach. To start with the bare minimum, we need 4 different things:
 
 - DomainEvent
 - AggregateRoot
