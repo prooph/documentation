@@ -39,24 +39,10 @@ If you want to use the admin web interface or the HTTP API, then you use port `2
 
 To use a client API, you use port `1113` and create a connection:
 
-### [Async Client](#tab/tabid-event-store-client-async-connect)
-
 When using the Event Store Client, you also need to give the connection a name.
 
 ```php
-$connection = EventStoreAsyncConnectionFactory::createFromUri(
-    Uri::fromString('tcp://admin:changeit@localhost:1113'),
-    null,
-    'test-connection'
-);
-```
-
-### [Sync Client](#tab/tabid-event-store-client-sync-connect)
-
-When using the Event Store Client, you also need to give the connection a name.
-
-```php
-$connection = EventStoreSyncConnectionFactory::createFromUri(
+$connection = EventStoreConnectionFactory::createFromUri(
     Uri::fromString('tcp://admin:changeit@localhost:1113'),
     null,
     'test-connection'
@@ -96,7 +82,7 @@ Use the following cURL command, passing the name of the stream and the events to
 To use the PHP API, use the following method, passing the name of the stream, the version, and the events to write:
 
 ```php
-yield $conn->appendToStreamAsync(
+$conn->appendToStream(
     $streamName,
     ExpectedVersion::ANY,
     [$eventData]

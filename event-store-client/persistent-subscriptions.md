@@ -16,7 +16,7 @@ Returns information about the persistent subscription for a stream you specify w
 public function list(
     ?string $stream = null,
     ?UserCredentials $userCredentials = null
-): Promise<list<PersistentSubscriptionDetails>>
+): list<PersistentSubscriptionDetails>
 ```
 
 ### Get information for a persistent subscription for a stream
@@ -28,7 +28,7 @@ public function describe(
     string $stream,
     string $subscriptionName,
     ?UserCredentials $userCredentials = null
-): Promise<PersistentSubscriptionDetails>
+): PersistentSubscriptionDetails
 ```
 
 ### Replay parked messages
@@ -40,5 +40,5 @@ public function replayParkedMessages(
     string $stream,
     string $subscriptionName,
     ?UserCredentials $userCredentials = null
-): Promise
+): void
 ```

@@ -13,11 +13,11 @@ You can make an optimistic concurrency check during the write by specifying the 
 ### Appending to a stream in a single write
 
 ```php
-appendToStreamAsync(
+appendToStream(
     string $stream,
     int $expectedVersion,
     EventData[] $events
-): Promise<WriteResult>
+): WriteResult
 ```
 
 ### Using a transaction to append to a stream across multiple writes
@@ -25,28 +25,28 @@ appendToStreamAsync(
 #### On `EventStoreConnection`
 
 ```php
-startTransactionAsync(
+startTransaction(
     string $stream,
     int $expectedVersion
-): Promise<EventStoreAsyncTransaction>
+): EventStoreTransaction
 ```
 
 ```php
 continueTransaction(
     int $transactionId
-): EventStoreAsyncTransaction
+): EventStoreTransaction
 ```
 
 #### On `EventStoreTransaction`
 
 ```php
-writeAsync(
+write(
     EventData[] $events
-): Promise
+): void
 ```
 
 ```php
-commitAsync(): Promise<WriteResult>
+commit(): WriteResult
 ```
 
 ```php
@@ -71,7 +71,7 @@ The members on `EventData` are:
 
 ## Append to a stream in a single write
 
-The `appendToStreamAsync` method writes events atomically to the end of a stream, working in an asynchronous manner.
+The `appendToStream` method writes events atomically to the end of a stream, working in an asynchronous manner.
 
 The parameters are:
 

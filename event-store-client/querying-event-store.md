@@ -13,12 +13,12 @@ The Event Store Client API includes helper methods that use the HTTP API to allo
 Asynchronously executes a query by creating a new transient projection and polls its status until it is Completed.
 
 ```php
-public function executeAsync(
+public function execute(
     string $name,
     string $query,
     int $initialPollingDelay,
     int $maximumPollingDelay,
     string $type = 'JS',
     ?UserCredentials $userCredentials = null
-): Promise<State>;
+): State;
 ```

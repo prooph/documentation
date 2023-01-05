@@ -27,8 +27,8 @@ Next we need to create a persistent subscription. You can either do this via the
 $settings = PersistentSubscriptionSettings::create()
     ->build();
 
-$result = yield $eventStoreConnection
-    ->createPersistentSubscriptionAsync(
+$result = $eventStoreConnection
+    ->createPersistentSubscription(
         '$ce-user',
         'mysql-read-model',
         $settings,
@@ -68,9 +68,9 @@ Loop::run(function () {
         'test-connection'
     );
     
-    yield $connection->connectAsync();
+    $connection->connect();
     
-    yield $connection->connectToPersistentSubscriptionAsync(
+    $connection->connectToPersistentSubscription(
         '$ce-user',
         'mysql-read-model',
         \Closure::fromCallable(new UserEventAppeared(
@@ -97,16 +97,14 @@ declare(strict_types=1);
 namespace Acme;
 
 use Amp\Mysql;
-use Amp\Promise;
 use Prooph\EventStoreClient\EventStorePersistentSubscription;
 use Prooph\EventStoreClient\Internal\ResolvedEvent
 
 class UserEventAppeared
 {
-    /** @var Mysql\Pool */
-    private $pool;
+    private Mysql\Pool $pool;
 
-    public function __construct($connectionString)
+    public function __construct(string $connectionString)
     {
         $this->pool = Mysql\pool($connectionString);
     }
@@ -115,8 +113,7 @@ class UserEventAppeared
         EventStorePersistentSubscription $subscription,
         ResolvedEvent $resolvedEvent,
         ?int $retryCount = null
-    ): Promise
-    {
+    ): void {
         switch ($resolvedEvent->event()->eventType()) {
             case 'user-registered':
                 $data = $resolvedEvent->event()->data();
@@ -124,20 +121,16 @@ class UserEventAppeared
                 $name = $data['name'];
                 $email = $data['email'];
 
-                $statement = yield $this->pool->prepare(
+                $statement = $this->pool->prepare(
                     "INSERT INTO user (id, name, email) VALUES (?, ?, ?)"
                 );
 
                 return $statement->execute([$id, $name, $email]);
-                break;
+
             default:
                 // ignore
                 break;
         }
-        
-        // In case of non-async process here, you can also just return a success.
-        // return new Success();
-        // But here we yield instead
     }
 }
 ```

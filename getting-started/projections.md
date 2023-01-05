@@ -107,7 +107,7 @@ foreach (\scandir('.') as $file) {
         );
     }
 
-    yield $connection->appendToStreamAsync(
+    $connection->appendToStream(
         $streamName,
         ExpectedVersion::ANY,
         $events
@@ -150,7 +150,7 @@ $projection = new ProjectionsManager(
     5000
 );
 
-yield $projection->createContinuousAsync(
+$projection->createContinuous(
     'xbox-one-s-counter',
     $countItemsProjection
 );
@@ -169,7 +169,7 @@ Now the projection is running, you can query the state of the projection. As thi
 ### [Event Store Client](#tab/tabid-get-state-php)
 
 ```php
-$projectionState = yield $projection->getStateAsync(
+$projectionState = $projection->getState(
     'xbox-one-s-counter',
     Globals::adminCredentials()
 );
@@ -203,7 +203,7 @@ To update the projection, edit the projection definition in the web admin UI, or
 ### [Event Store Client](#tab/tabid-update-proj-php)
 
 ```php
-yield $projection->updateQueryAsync(
+$projection->updateQuery(
     'xbox-one-s-counter',
     $countItemsProjectionUpdate
 );
@@ -220,7 +220,7 @@ Then reset the projection you created above:
 ### [Event Store Client](#tab/tabid-reset-php)
 
 ```php
-yield $projection->resetAsynsc(
+$projection->reset(
     'xbox-one-s-counter',
     $countItemsProjectionUpdate
 );
@@ -241,13 +241,12 @@ You can now read the events in the result stream by issuing a read request.
 ### [Event Store Client](#tab/tabid-read-stream-php)
 
 ```php
-$readEvents = yield $connection->readStreamEventsForwardAsync(
+$readEvents = $connection->readStreamEventsForward(
     '$projections-xbox-one-s-counter-result',
     0,
     10,
     true
 );
-\assert($readEvents instanceof StreamEventsSlice);
 
 foreach ($readEvents->events() as $event) {
     \var_dump($event->event()->data());
@@ -275,7 +274,7 @@ Then send the update to the projection:
 ### [Event Store Client](#tab/tabid-update-proj-config-php)
 
 ```php
-yield $projection->updateQueryAsync(
+$projection->updateQuery(
     'xbox-one-s-counter',
     $optionsProjectionOptionsUpdate
 );
@@ -295,13 +294,12 @@ Now you can read the result as above, but use the new stream name:
 ### [Event Store Client](#tab/tabid-read-projection-events-renamed-php)
 
 ```php
-$readEvents = yield $connection->readStreamEventsForwardAsync(
+$readEvents = $connection->readStreamEventsForward(
     'xboxes',
     0,
     10,
     true
 );
-\assert($readEvents instanceof StreamEventsSlice);
 
 foreach ($readEvents->events() as $event) {
     \var_dump($event->event()->data());
@@ -323,7 +321,7 @@ Event Store has a built-in `$by_category` projection that lets you select events
 ### [Event Store Client](#tab/tabid-enablebycategory-php)
 
 ```php
-yield $projection->enableAsync(
+$projection->enable(
     '$by_category',
     $adminCredentials
 );
@@ -356,7 +354,7 @@ Create the projection with the following request:
 ### [Event Store Client](#tab/tabid-projections-count-per-stream-php)
 
 ```php
-yield $projection->createContinuousAsync(
+$projection->createContinuous(
     'shopping-cart-item-counter',
     $itemCounterProjection,
     true,
@@ -377,7 +375,7 @@ Querying for the state of the projection is different due to the partitioning of
 ### [Event Store Client](#tab/tabid-read-partition-php)
 
 ```php
-$projectionState = yield $projection->getPartitionStateAsync(
+$projectionState = $projection->getPartitionState(
     'shopping-cart-item-counter',
     'shoppingCart-b989fe21-9469-4017-8d71-9820b8dd1164',
     $adminCredentials

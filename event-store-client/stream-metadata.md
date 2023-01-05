@@ -19,37 +19,37 @@ This information is not part of the actual event but is metadata associated with
 ### Read Stream Metadata
 
 ```php
-getStreamMetadataAsync(
+getStreamMetadata(
     string $stream,
     ?UserCredentials $userCredentials = null
-): Promise<StreamMetadataResult>
+): StreamMetadataResult
 ```
 
 ```php
-getStreamMetadataAsRawBytesAsync(
+getStreamMetadataAsRawBytes(
     string $stream,
     ?UserCredentials $userCredentials = null
-): Promise<RawStreamMetadataResult>
+): RawStreamMetadataResult
 ```
 
 ### Write Stream Metadata
 
 ```php
-setStreamMetadataAsync(
+setStreamMetadata(
     string $stream,
     int $expectedMetastreamVersion,
     StreamMetadata $metadata,
     ?UserCredentials $userCredentials = null
-): Promise<WriteResult>
+): WriteResult
 ```
 
 ```php
-setRawStreamMetadataAsync(
+setRawStreamMetadata(
     string $stream,
     int $expectedMetastreamVersion,
     string $metadata,
     ?UserCredentials $userCredentials = null
-): Promise<WriteResult>
+): WriteResult
 ```
 
 ## Read Stream Metadata
@@ -57,10 +57,10 @@ setRawStreamMetadataAsync(
 To read stream metadata over the Event Store Client API you can use methods found on the `EventStoreConnection`. You can use the `getStreamMetadata` methods in two ways. The first is to return a fluent interface over the stream metadata, and the second is to return you the raw JSON of the stream metadata.
 
 ```php
-getStreamMetadataAsync(
+getStreamMetadata(
     string $stream,
     ?UserCredentials $userCredentials = null
-): Promise<StreamMetadataResult>
+): StreamMetadataResult
 ```
 
 This returns a `StreamMetadataResult`. The methods on this result are:
@@ -85,10 +85,10 @@ You can then access the `StreamMetadata` via the `StreamMetadata` object. It con
 If instead you want to work with raw JSON you can use the raw methods for stream metadata.
 
 ```php
-getStreamMetadataAsRawBytesAsync(
+getStreamMetadataAsRawBytes(
     string $stream,
     ?UserCredentials $userCredentials = null
-): Promise<RawStreamMetadataResult>
+): RawStreamMetadataResult
 ```
 
 This returns a `RawStreamMetadataResult`. The methods on this result are:
@@ -108,7 +108,7 @@ This returns a `RawStreamMetadataResult`. The methods on this result are:
 You can write metadata in both a typed and a raw mechanism. When writing it is generally easier to use the typed mechanism. Both writing mechanisms support an `expectedVersion` which works the same as on any stream and you can use to control concurrency, read [Expected Version](~/event-store-client/optimistic-concurrency-and-idempotence.md) for further details.
 
 ```php
-setStreamMetadataAsync(string $stream, int $expectedMetastreamVersion, StreamMetadata $metadata, ?UserCredentials $userCredentials = null): Promise<WriteResult>
+setStreamMetadata(string $stream, int $expectedMetastreamVersion, StreamMetadata $metadata, ?UserCredentials $userCredentials = null): WriteResult
 ```
 
 The `StreamMetadata` passed above has a builder that you can access via the `StreamMetadata::create()` method. The options available on the builder are:
@@ -134,12 +134,12 @@ You can add user-specified metadata via the `setCustomProperty` method. Some exa
 -   a correlation ID of some business process.
 
 ```php
-setStreamMetadataAsync(
+setStreamMetadata(
     string $stream,
     int $expectedMetastreamVersion,
     StreamMetadata $metadata,
     ?UserCredentials $userCredentials = null
-): Promise<WriteResult>
+): WriteResult
 ```
 
 This method will put the data that is in metadata as the stream metadata. Metadata in this case can be anything in a vector of bytes. The server only understands JSON.

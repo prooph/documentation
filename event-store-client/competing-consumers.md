@@ -16,12 +16,12 @@ This document explains how to use Event Store Cliet API for setting up and consu
 Before interacting with a subscription group, you need to create one. You will receive an error if you attempt to create a subscription group more than once. This requires admin permissions.
 
 ```php
-createPersistentSubscriptionAsync(
+createPersistentSubscription(
     string $stream,
     string $groupName,
     PersistentSubscriptionSettings $settings,
     ?UserCredentials $userCredentials = null
-): Promise<PersistentSubscriptionCreateResult>
+): PersistentSubscriptionCreateResult
 ```
 
 ## Updating a Persistent Subscription
@@ -29,36 +29,36 @@ createPersistentSubscriptionAsync(
 You can edit the settings of an existing subscription while it is running. This action drops the current subscribers and resets the subscription internally. This requires [admin permissions](~/server/users-and-access-control-lists.md).
 
 ```php
-updatePersistentSubscriptionAsync(
+updatePersistentSubscription(
     string $stream,
     string $groupName,
     PersistentSubscriptionSettings $settings,
     ?UserCredentials $userCredentials = null
-): Promise<PersistentSubscriptionUpdateResult>
+): PersistentSubscriptionUpdateResult
 ```
 
 ## Deleting a Persistent Subscription
 
 ```php
-deletePersistentSubscriptionAsync(
+deletePersistentSubscription(
     string $stream,
     string $groupName,
     ?UserCredentials $userCredentials = null
-): Promise<DeletePersistentSubscription>
+): DeletePersistentSubscription
 ```
 
 ## Connecting to a Persistent Subscription
 
 ```php
-connectToPersistentSubscriptionAsync(
+connectToPersistentSubscription(
     string $stream,
     string $groupName,
-    EventAppearedOnPersistentSubscription $eventAppeared,
-    ?PersistentSubscriptionDropped $subscriptionDropped = null,
+    Closure $eventAppeared,
+    ?Closure $subscriptionDropped = null,
     int $bufferSize = 10,
     bool $autoAck = true,
     ?UserCredentials $userCredentials = null
-): Promise<EventStorePersistentSubscription>
+): EventStorePersistentSubscription
 ```
 
 ## Persistent Subscription Settings
@@ -97,7 +97,7 @@ $settings = PersistentSubscriptionSettings::create()
     ->startFromCurrent()
     ->build();
 
-$result = yield $conn->createPersistentSubscriptionAsync(
+$result = $conn->createPersistentSubscription(
     $stream,
     'agroup',
     $settings,
@@ -122,7 +122,7 @@ $settings = PersistentSubscriptionSettings::create()
     ->startFromCurrent()
     ->build();
 
-$result = yield $conn->updatePersistentSubscriptionAsync(
+$result = $conn->updatePersistentSubscription(
     $stream,
     'agroup',
     $settings,
@@ -145,7 +145,7 @@ $result = yield $conn->updatePersistentSubscriptionAsync(
 Remove a subscription group with the delete operation. Like the creation of groups, you rarely do this in your runtime code and is undertaken by an administrator running a script.
 
 ```php
-$result = yield $conn->deletePersistentSubscriptionAsync(
+$result = $conn->deletePersistentSubscription(
     $stream,
     'groupname',
     DefaultData::adminCredentials()
@@ -165,7 +165,7 @@ Once you have created a subscription group, clients can connect to that subscrip
 The most important parameter to pass when connecting is the buffer size. This parameter represents how many outstanding messages the server should allow this client. If this number is too small, your subscription will spend much of its time idle as it waits for an acknowledgment to come back from the client. If it's too big, you waste resources and can start causing time out messages depending on the speed of your processing.
 
 ```php
-$subscription = yield $conn->connectToPersistentSubscription(
+$subscription = $conn->connectToPersistentSubscription(
     'foo',
     'nonexisting2',
     $eventAppeared,
@@ -176,11 +176,11 @@ $subscription = yield $conn->connectToPersistentSubscription(
 ```
 
 | Parameter                                                     | Description                                                                |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| ------------------------------------------------------------- |----------------------------------------------------------------------------|
 | `string $stream`                                              | The stream to the persistent subscription is on.                           |
 | `string $groupName`                                           | The name of the subscription group to connect to.                          |
-| `EventAppearedOnPersistentSubscription $eventAppeared`        | The action to call when an event arrives over the subscription.            |
-| `?PersistentSubscriptionDropped $subscriptionDropped = null`  | The action to call if the subscription is dropped.                         |
+| `Closure(EventStorePersistentSubscription, ResolvedEvent, null|int): void $eventAppeared` | The action to call when an event arrives over the subscription. |
+| `null| Closure(EventStorePersistentSubscription, SubscriptionDropReason, null     |Throwable): void $subscriptionDropped` | The action to call if the subscription is dropped. |
 | `UserCredentials $credentials`                                | The user credentials to use for this operation.                            |
 | `int $bufferSize`                                             | The number of in-flight messages this client is allowed.                   |
 | `bool $autoAck`                                               | Whether to automatically acknowledge messages after eventAppeared returns. |

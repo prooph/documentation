@@ -13,10 +13,10 @@ The Event Store Client API includes helper methods that use the HTTP API to allo
 Enables an existing projection by name. You must have access to a projection to enable it.
 
 ```php
-enableAsync(
+enable(
     string $name,
     ?UserCredentials $userCredentials = null
-): Promise<void>
+): void
 ```
 
 ### Disable a Projection
@@ -24,10 +24,10 @@ enableAsync(
 Disables an existing projection by name. You must have access to a projection to disable it.
 
 ```php
-disableAsync(
+disable(
     string $name,
     ?UserCredentials $userCredentials = null
-): Promise<void>
+): void
 ```
 
 ### Abort a Projection
@@ -35,10 +35,10 @@ disableAsync(
 Aborts an existing projection by name. You must have access to a projection to abort it.
 
 ```php
-abortAsync(
+abort(
     string $name,
     ?UserCredentials $userCredentials = null
-): Promise<void>
+): void
 ```
 
 ### Create a One-Time Projection
@@ -46,11 +46,11 @@ abortAsync(
 Creates a projection that runs until the end of the log and then stops. The query parameter contains the JavaScript you want created as a one time projection.
 
 ```php
-createOneTimeAsync(
+createOneTime(
     string $query,
     string $type = 'JS',
     ?UserCredentials $userCredentials = null
-): Promise<void>
+): void
 ```
 
 ## Create a Transient Projection
@@ -58,12 +58,12 @@ createOneTimeAsync(
 Create an ad-hoc projection that runs until completion and automatically deleted afterwards. The query parameter contains the JavaScript you want created as a transient projection.
 
 ```php
-public function createTransientAsync(
+public function createTransient(
     string $name,
     string $query,
     string $type = 'JS',
     ?UserCredentials $userCredentials = null
-): Promise<void>
+): void
 ```
 
 ### Create a Continuous Projection
@@ -71,13 +71,13 @@ public function createTransientAsync(
 Creates a projection that runs until the end of the log and then continues running. The query parameter contains the JavaScript you want created as a one time projection. Continuous projections have explicit names and you can enable or disable them via this name.
 
 ```php
-createContinuousAsync(
+createContinuous(
     string $name,
     string $query,
     bool $trackEmittedStreams = false,
     string $type = 'JS',
     ?UserCredentials $userCredentials = null
-): Promise<void>
+): void
 ```
 
 ### List all Projections
@@ -85,9 +85,9 @@ createContinuousAsync(
 Returns a list of all projections.
 
 ```php
-listAllAsync(
+listAll(
     ?UserCredentials $userCredentials = null
-): Promise<list<ProjectionDetails>>
+): list<ProjectionDetails>
 ```
 
 ### List One-Time Projections
@@ -95,9 +95,9 @@ listAllAsync(
 Returns a list of all One-Time Projections.
 
 ```php
-listOneTimeAsync(
+listOneTime(
     ?UserCredentials $userCredentials = null
-): Promise<list<ProjectionDetails>>
+): list<ProjectionDetails>
 ```
 
 ### List Continuous Projections
@@ -105,9 +105,9 @@ listOneTimeAsync(
 Returns a list of all Continuous Projections.
 
 ```php
-listContinuousAsync(
+listContinuous(
     ?UserCredentials $userCredentials = null
-): Promise<list<ProjectionDetails>>
+): list<ProjectionDetails>
 ```
 
 ### Get projection status
@@ -115,10 +115,10 @@ listContinuousAsync(
 Returns projection status as `\Prooph\EventStore\Projections\ProjectionDetails` instance.
 
 ```php
-public function getStatusAsync(
+public function getStatus(
     string $name, 
     ?UserCredentials $userCredentials = null
-): Promise<ProjectionDetails>;
+): ProjectionDetails
 ```
 
 ### Get Statistics on a Projection
@@ -126,10 +126,10 @@ public function getStatusAsync(
 Returns the statistics associated with a named projection.
 
 ```php
-getStatisticsAsync(
+getStatistics(
     string $name,
     ?UserCredentials $userCredentials = null
-): Promise<ProjectionStatistics>
+): ProjectionStatistics
 ```
 
 ### Delete Projection
@@ -137,10 +137,10 @@ getStatisticsAsync(
 Deletes a named projection. You must have access to a projection to delete it.
 
 ```php
-deleteAsync(
+delete(
     string $name,
     ?UserCredentials $userCredentials = null
-): Promise<void>
+): void
 ```
 
 ### Get State
@@ -148,10 +148,10 @@ deleteAsync(
 Retrieves the state of a projection. Returns instance of `\Prooph\EventStore\Projections\State`.
 
 ```php
-getStateAsync(
+getState(
     string $name,
     ?UserCredentials $userCredentials = null
-): Promise<State>
+): State
 ```
 
 ### Get Partition State
@@ -159,11 +159,11 @@ getStateAsync(
 Asynchronously gets the state of a projection for a specified partition
 
 ```php
-getPartitionStateAsync(
+getPartitionState(
     string $name,
     string $partition,
     ?UserCredentials $userCredentials = null
-): Promise<State>
+): State
 ```
 
 ### Get Result
@@ -171,10 +171,10 @@ getPartitionStateAsync(
 Asynchronously gets the result of a projection
 
 ```php
-getResultAsync(
+getResult(
     string $name,
     ?UserCredentials $userCredentials = null
-): Promise<State>
+): State
 ```
 
 ### Get Partition Result
@@ -182,11 +182,11 @@ getResultAsync(
 Asynchronously gets the result of a projection for a specified partition
 
 ```php
-getPartitionResultAsync(
+getPartitionResult(
     string $name,
     string $partition,
     ?UserCredentials $userCredentials = null
-): Promise<State>
+): State
 ```
 
 ### Get Projection Query
@@ -194,10 +194,10 @@ getPartitionResultAsync(
 Retrieves Query of a projection.
 
 ```php
-getQueryAsync(
+getQuery(
     string $name,
     ?UserCredentials $userCredentials = null
-): Promise<Query>
+): Query
 ```
 
 ### Update Query
@@ -205,12 +205,12 @@ getQueryAsync(
 Asynchronously updates the definition of a query
 
 ```php
-public function updateQueryAsync(
+public function updateQuery(
     string $name,
     string $query,
     ?bool $emitEnabled = null,
     ?UserCredentials $userCredentials = null
-): Promise<void>;
+): void;
 ```
 
 ### Reset projection
@@ -218,8 +218,8 @@ public function updateQueryAsync(
 Asynchronously resets a projection.
 
 ```php
-public function resetAsync(
+public function reset(
     string $name, 
     ?UserCredentials $userCredentials = null
-): Promise<void>;
+): void;
 ```

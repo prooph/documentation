@@ -8,8 +8,6 @@ This part covers async event store client connections and what to take into cons
 
 Prooph Event Store Client supports async non-blocking TCP connection to [EventStore](http://eventstore.org/).
 
-All operations are handled fully asynchronously, returning an `Amp\Promise`.
-
 The `EventStoreConnection` maintains a full-duplex connection between the client and the Event Store server.
 
 > [!NOTE]
@@ -43,9 +41,9 @@ Loop::run(function () {
         new EndPoint('eventstore', 1113)
     );
 
-    yield $connection->connectAsync();
+    $connection->connect();
 
-    $slice = yield $connection->readStreamEventsForwardAsync(
+    $slice = $connection->readStreamEventsForward(
         'foo-bar',
         0,
         10,

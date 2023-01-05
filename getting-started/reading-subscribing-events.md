@@ -32,13 +32,12 @@ Event Store exposes all streams as [atom feeds](http://tools.ietf.org/html/rfc42
 To use the PHP API, use the following method passing the stream name, the start point in the stream, the number of events to read and whether to follow links to the event data:
 
 ```php
-$readEvents = yield $connection->readStreamEventsForwardAsync(
+$readEvents = $connection->readStreamEventsForward(
     $stream,
     0,
     10,
     true
 );
-\assert($readEvents instanceof StreamEventsSlice);
 
 foreach ($readEvents->events() as $event) {
     \var_dump($event->event()->data());
@@ -72,8 +71,7 @@ The feed has a single item inside of it, the one you posted in [part 1](~/gettin
 To use the PHP API, use the following method passing the stream name, the event you want to read and wether to return the event data:
 
 ```php
-$readResult = yield $conn->readEventAsync($streamName, 0, true);
-\assert($readResult instanceof EventReadResult);
+$readResult = $conn->readEvent($streamName, 0, true);
 \var_dump($readResult->event()->event()->data());
 ```
 
@@ -103,38 +101,30 @@ $settings = PersistentSubscriptionSettings::create()
     ->startFromCurrent()
     ->build();
 
-yield $connection->createPersistentSubscriptionAsync(
+$connection->createPersistentSubscription(
     $streamName,
     'examplegroup',
     $settings,
     $adminCredentials
 );
 
-yield $connection->connectToPersistentSubscriptionAsync(
+$connection->connectToPersistentSubscription(
     $streamName,
     'examplegroup',
-    new class() implements EventAppearedOnPersistentSubscription {
-        public function __invoke(
-            AbstractEventStorePersistentSubscription $subscription,
-            ResolvedEvent $resolvedEvent,
-            ?int $retryCount = null
-        ): Promise
-        {
-            $data = $resolvedEvent->originalEvent()->data();
-            echo \sprintf(
-                'Received: %s :%d',
-                $resolvedEvent->originalStreamName(),
-                $resolvedEvent->originalPosition()
-            );
-            \var_dump($data);
-            return new Success();
-        }
+    function (EventStorePersistentSubscription $sub, ResolvedEvent $evt, ?int $retryCount): void {
+        $data = $resolvedEvent->originalEvent()->data();
+        echo \sprintf(
+            'Received: %s :%d',
+            $resolvedEvent->originalStreamName(),
+            $resolvedEvent->originalPosition()
+        );
+        \var_dump($data);
     }
 );
 ```
 
 > [!NEXT]
-> Find more details on the parameters used in the example above, read the API documentation for [`PersistentSubscriptionSettings`](xref:EventStore.ClientAPI.PersistentSubscriptionSettings), [`CreatePersistentSubscriptionAsync`](xref:EventStore.ClientAPI.IEventStoreConnection.CreatePersistentSubscriptionAsync*) and [`ConnectToPersistentSubscription`](xref:EventStore.ClientAPI.IEventStoreConnection.ConnectToPersistentSubscriptionAsync*)
+> Find more details on the parameters used in the example above, read the API documentation for `PersistentSubscriptionSettings`, `CreatePersistentSubscription` and `ConnectToPersistentSubscription`
 
 * * *
 

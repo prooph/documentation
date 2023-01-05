@@ -11,53 +11,53 @@ You can use the client API to read events from a stream starting from either end
 ### Read a single event
 
 ```php
-readEventAsync(
+readEvent(
     string $stream,
     int $eventNumber,
     bool $resolveLinkTos
-): Promise<EventReadResult>
+): EventReadResult
 ```
 
 ### Read a specific stream forwards
 
 ```php
-readStreamEventsForwardAsync(
+readStreamEventsForward(
     string $stream,
     int $start,
     int $count,
     bool $resolveLinkTos
-): Promise<StreamEventsSlice>
+): StreamEventsSlice
 ```
 
 ### Read a specific stream backwards
 
 ```php
-readStreamEventsBackwardAsync(
+readStreamEventsBackward(
     string $stream,
     int $start,
     int $count,
     bool $resolveLinkTos
-): Promise<StreamEventsSlice>
+): StreamEventsSlice
 ```
 
 ### Read all events forwards
 
 ```php
-readAllEventsForwardAsync(
+readAllEventsForward(
     Position $position,
     int $maxCount,
     bool $resolveLinkTos
-): Promise<AllEventsSlice>
+): AllEventsSlice
 ```
 
 ### Read all events backwards
 
 ```php
-readAllEventsBackwardAsync(
+readAllEventsBackward(
     Position $position,
     int $maxCount,
     bool $resolveLinkTos
-): Promise<AllEventsSlice>
+): AllEventsSlice
 ```
 
 > [!NOTE]
@@ -118,7 +118,7 @@ The methods of this class are as follows:
 
 ## Read a single event
 
-The `readEventAsync` method reads a single event from a stream at a specified position. This is the simplest case of reading events, but is still useful for situations such as reading the last event in the stream used as a starting point for a subscription. This function accepts three parameters:
+The `readEvent` method reads a single event from a stream at a specified position. This is the simplest case of reading events, but is still useful for situations such as reading the last event in the stream used as a starting point for a subscription. This function accepts three parameters:
 
 | Parameter              | Description                                                                                                                                                         |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -130,7 +130,7 @@ This method returns an instance of `EventReadResult` which indicates if the read
 
 ## Reading a stream forwards
 
-The `readStreamEventsForwardAsync` method reads the requested number of events in the order in which they were originally written to the stream from a nominated starting point in the stream.
+The `readStreamEventsForward` method reads the requested number of events in the order in which they were originally written to the stream from a nominated starting point in the stream.
 
 The parameters are:
 
@@ -143,14 +143,14 @@ The parameters are:
 
 ### Example: Read an entire stream forwards from start to end
 
-This example uses the `readStreamEventsForwardAsync` method in a loop to page through all events in a stream, reading 200 events at a time to build a list of all the events in the stream.
+This example uses the `readStreamEventsForward` method in a loop to page through all events in a stream, reading 200 events at a time to build a list of all the events in the stream.
 
 ```php
 $streamEvents = [];
 $nextSliceStart = StreamPosition::START;
 
 do {
-    $currentSlice = yield $connection->readStreamEventsForwardAsync(
+    $currentSlice = $connection->readStreamEventsForward(
         'myStream',
         $nextSliceStart,
         200,
@@ -168,7 +168,7 @@ do {
 
 ## Read a stream backwards
 
-The `readStreamEventsBackwardAsync` method reads the requested number of events in the reverse order from that in which they were originally written to the stream from a specified starting point.
+The `readStreamEventsBackward` method reads the requested number of events in the reverse order from that in which they were originally written to the stream from a specified starting point.
 
 The parameters are:
 
@@ -181,7 +181,7 @@ The parameters are:
 
 ## Read all events
 
-Event Store allows you to read events across all streams using the `readAllEventsForwardAsync` and `readAllEventsBackwardsAsync` methods. These work in the same way as the regular read methods, but use an instance of the global log file `Position` to reference events rather than the simple integer stream position described previously.
+Event Store allows you to read events across all streams using the `readAllEventsForward` and `readAllEventsBackwards` methods. These work in the same way as the regular read methods, but use an instance of the global log file `Position` to reference events rather than the simple integer stream position described previously.
 
 They also return an `AllEventsSlice` rather than a `StreamEventsSlice` which is the same except it uses global `Position`s rather than stream positions.
 
@@ -192,7 +192,7 @@ $allEvents = [];
 $nextSliceStart = Position::start();
 
 do {
-    $currentSlice = yield $connection->readAllEventsForwardAsync(
+    $currentSlice = $connection->readAllEventsForward(
         $nextSliceStart,
         200,
         false

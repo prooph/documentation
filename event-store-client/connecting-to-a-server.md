@@ -8,10 +8,6 @@ outputFileName: index.html
 
 The `EventStoreConnection` class maintains a full-duplex connection between the client and the Event Store server.
 
-All operations are fully asynchronous and return an `Amp\Promise`. If you need to execute synchronously, yield the execution on the asynchronous version.
-
-To get maximum performance from the connection we recommend that you use it asynchronously.
-
 ## Default Ports
 
 `1113` - TCP Port (your connection reading and writing goes here)
@@ -30,7 +26,7 @@ The `EventStoreConnectionFactory` class uses the static `create*` methods to cre
 | `createFromClusterSettings(ConnectionSettings $connectionSettings, ClusterSettings $clusterSettings)` | Connects to an Event Store HA cluster (see [Cluster Settings](#cluster-settings))                 |
 
 > [!NOTE]
-> The connection returned by these methods is inactive. Use the `connectAsync()` method to establish a connection with the server.
+> The connection returned by these methods is inactive. Use the `connect()` method to establish a connection with the server.
 
 ## URIs
 

@@ -13,13 +13,13 @@ The Event Store Client API includes helper methods that use the HTTP API to allo
 Creates a user, the credentials for this operation must be a member of the `$admins` group.
 
 ```php
-createUserAsync(
+createUser(
     string $login,
     string $fullName,
     list<string> $groups,
     string $password,
     ?UserCredentials $userCredentials = null
-): Promise<void>
+): void
 ```
 
 ### Disable a User
@@ -27,10 +27,10 @@ createUserAsync(
 Disables a user, the credentials for this operation must be a member of the `$admins` group.
 
 ```php
-disableAsync(
+disable(
     string $login,
     ?UserCredentials userCredentials = null
-): Promise<void>
+): void
 ```
 
 ### Enable a User
@@ -38,10 +38,10 @@ disableAsync(
 Enables a user, the credentials for this operation must be a member of the `$admins` group.
 
 ```php
-enableAsync(
+enable(
     string $login,
     ?UserCredentials userCredentials = null
-): Promise<void>
+): void
 ```
 
 ### Delete a User
@@ -51,10 +51,10 @@ Deletes (non-recoverable) a user, the credentials for this operation must be a m
 Throws `\Prooph\EventStoreClient\Exception\UserCommandFailed` when server returns an error. 
 
 ```php
-deleteUserAsync(
+deleteUser(
     string $login,
     ?UserCredentials userCredentials = null
-): Promise<void>
+): void
 ```
 
 ### List all Users
@@ -62,9 +62,9 @@ deleteUserAsync(
 Lists all users.
 
 ```php
-listAllAsync(
+listAll(
     ?UserCredentials userCredentials = null
-): Promise<list<UserDetails>>
+): list<UserDetails>
 ```
 
 ### Get Details of User
@@ -72,29 +72,29 @@ listAllAsync(
 Return the details of the user supplied in user credentials (e.g. the user making the request).
 
 ```php
-getCurrentUserAsync(
+getCurrentUser(
     ?UserCredentials $userCredentials = null
-): Promise<UserDetails>
+): UserDetails
 ```
 
 ### Get Details of Logged in User
 
 ```php
-getUserAsync(
+getUser(
     string $login,
     ?UserCredentials $userCredentials = null
-): Promise<UserDetails>
+): UserDetails
 ```
 
 ### Update User Details
 
 ```php
-updateUserAsync(
+updateUser(
     string $login,
     string $fullName,
     list<string> $groups,
     ?UserCredentials $userCredentials = null
-): Promise<void>
+): void
 ```
 
 ### Change User Password
@@ -102,12 +102,12 @@ updateUserAsync(
 Change the password of the specified user. The credentials doing this operation must be part of the `$admins` group.
 
 ```php
-changePasswordAsync(
+changePassword(
     string $login,
     string $oldPassword,
     string $newPassword,
     ?UserCredentials $userCredentials = null
-): Promise<void>
+): void
 ```
 
 
@@ -116,9 +116,9 @@ changePasswordAsync(
 Resets the password of a user. The credentials doing this operation must be part of the `$admins` group.
 
 ```php
-resetPasswordAsync(
+resetPassword(
     string $login,
     string $newPassword,
     ?UserCredentials $userCredentials = null
-): Promise<void>
+): void
 ```

@@ -66,18 +66,9 @@ use Prooph\EventStore\EventId;
 
 final class MessageTransformer
 {
-    /**
-     * key = event type
-     * value = event class name
-     * @var array
-     */
-    protected $map;
-
     // key = event-type, value = event class name
-    public function __construct(array $map)
-    {
-        $this->map = $map;
-    }
+    public function __construct(protected array $map)
+    {}
 
     public function toDomainEvent(ResolvedEvent $event): DomainEvent
     {
@@ -143,15 +134,12 @@ use Prooph\EventStore\ExpectedVersion;
 
 abstract class AggregateRoot
 {
-    /** @var int */
-    protected $expectedVersion = ExpectedVersion::EMPTY_STREAM;
+    protected int $expectedVersion = ExpectedVersion::EMPTY_STREAM;
 
     /**
      * List of events that are not committed to the EventStore
-     *
-     * @var DomainEvent[]
      */
-    protected $recordedEvents = [];
+    protected array $recordedEvents = [];
 
     /**
      * We do not allow public access to __construct
@@ -284,130 +272,104 @@ use function Amp\call;
 
 class AggregateRepository
 {
-    /** @var EventStoreConnection */
-    protected $eventStoreConnection;
-    /** @var MessageTransformer */
-    protected $transformer;
-    /** @var string */
-    protected $streamCategory;
-    /** @var string */
-    protected $aggregateRootClassName;
-    /** @var bool */
-    protected $optimisticConcurrency;
-
     public function __construct(
-        EventStoreConnection $eventStoreConnection,
-        MessageTransformer $transformer,
-        string $streamCategory,
-        string $aggregateRootClassName,
-        bool $useOptimisticConcurrencyByDefault = true
-    ) {
-        $this->eventStoreConnection = $eventStoreConnection;
-        $this->transformer = $transformer;
-        $this->streamCategory = $streamCategory;
-        $this->aggregateRootClassName = $aggregateRootClassName;
-        $this->optimisticConcurrency = $useOptimisticConcurrencyByDefault;
-    }
+        protected EventStoreConnection $eventStoreConnection,
+        protected MessageTransformer $transformer,
+        protected string $streamCategory,
+        protected string $aggregateRootClassName,
+        protected bool $useOptimisticConcurrencyByDefault = true
+    ) {}
 
     public function saveAggregateRoot(
         AggregateRoot $aggregateRoot,
         int $expectedVersion = null,
         UserCredentials $credentials = null
-    ): Promise
-    {
-        return call(function () use ($aggregateRoot, $expectedVersion, $credentials) {
-            $domainEvents = $aggregateRoot->popRecordedEvents();
-     
-            if (empty($domainEvents)) {
-                return new Success();
-            }
-            
-            $aggregateId = $aggregateRoot->aggregateId();
-            $stream = $this->streamCategory . '-' . $aggregateId;
-            
-            $eventData = [];
-            
-            foreach ($domainEvents as $event) {
-                $eventData[] = $this->transformer->toEventData($event);
-            }
-            
-            if (null === $expectedVersion) {
-                $expectedVersion = $this->optimisticConcurrency
-                    ? $aggregateRoot->expectedVersion()
-                    : ExpectedVersion::ANY;
-            }
-            
-            $writeResult = yield $this->eventStoreConnection
-                ->appendToStreamAsync(
-                    $stream,
-                    $expectedVersion,
-                    $eventData,
-                    $credentials
-             );
-            
-            $aggregateRoot->setExpectedVersion(
-                $writeResult->nextExpectedVersion()
-            );
-            
-            return $aggregateRoot;
-        });
+    ): object {
+        $domainEvents = $aggregateRoot->popRecordedEvents();
+ 
+        if (empty($domainEvents)) {
+            return new Success();
+        }
+        
+        $aggregateId = $aggregateRoot->aggregateId();
+        $stream = $this->streamCategory . '-' . $aggregateId;
+        
+        $eventData = [];
+        
+        foreach ($domainEvents as $event) {
+            $eventData[] = $this->transformer->toEventData($event);
+        }
+        
+        if (null === $expectedVersion) {
+            $expectedVersion = $this->optimisticConcurrency
+                ? $aggregateRoot->expectedVersion()
+                : ExpectedVersion::ANY;
+        }
+        
+        $writeResult = $this->eventStoreConnection->appendToStream(
+            $stream,
+            $expectedVersion,
+            $eventData,
+            $credentials
+         );
+        
+        $aggregateRoot->setExpectedVersion(
+            $writeResult->nextExpectedVersion()
+        );
+        
+        return $aggregateRoot;
     }
 
     /**
      * Returns null if no stream events can be found for aggregate root otherwise the reconstituted aggregate root
-     * 
-     * @return Promise<?object> 
      */
     public function getAggregateRoot(
         string $aggregateId,
         UserCredentials $credentials = null
-    ): Promise
-    {
-        return call(function () use ($aggregateId, $credentials) {
-            $stream = $this->streamCategory . '-' . $aggregateId;
-            
-            $start = 0;
-            $count = Consts::MAX_READ_SIZE;
-    
-            do {
-                $events = [];
-    
-                $streamEventsSlice = yield $this->eventStoreConnection
-                    ->readStreamEventsForwardAsync(
-                        $stream,
-                        $start,
-                        $count,
-                        true,
-                        $credentials
-                    );
-    
-                if (! $streamEventsSlice->status()->equals(
-                    SliceReadStatus::success())
-                ) {
-                    return null;
-                }
-    
-                $start = $streamEventsSlice->nextEventNumber();
-    
-                foreach ($streamEventsSlice->events() as $event) {
-                    $events[] = $this->transformer->toDomainEvent($event);
-                }
-    
-                if (isset($aggregateRoot)) {
-                    assert($aggregateRoot instanceof AggregateRoot);
-                    $aggregateRoot->replay($events);
-                } else {
-                    $className = $this->aggregateRootClassName;
-                    $aggregateRoot = $className::reconstituteFromHistory($events);
-                }
-            } while (! $streamEventsSlice->isEndOfStream());
-    
-            $aggregateRoot->setExpectedVersion(
-                $streamEventsSlice->lastEventNumber()
-            );
-    
-            return $aggregateRoot;
-        });
+    ): ?object {
+        $stream = $this->streamCategory . '-' . $aggregateId;
+        
+        $start = 0;
+        $count = Consts::MAX_READ_SIZE;
+
+        do {
+            $events = [];
+
+            $streamEventsSlice = $this->eventStoreConnection
+                ->readStreamEventsForward(
+                    $stream,
+                    $start,
+                    $count,
+                    true,
+                    $credentials
+                );
+
+            if (! $streamEventsSlice->status()->equals(
+                SliceReadStatus::success())
+            ) {
+                return null;
+            }
+
+            $start = $streamEventsSlice->nextEventNumber();
+
+            foreach ($streamEventsSlice->events() as $event) {
+                $events[] = $this->transformer->toDomainEvent($event);
+            }
+
+            if (isset($aggregateRoot)) {
+                assert($aggregateRoot instanceof AggregateRoot);
+                $aggregateRoot->replay($events);
+            } else {
+                $className = $this->aggregateRootClassName;
+                $aggregateRoot = $className::reconstituteFromHistory($events);
+            }
+        } while (! $streamEventsSlice->isEndOfStream());
+
+        $aggregateRoot->setExpectedVersion(
+            $streamEventsSlice->lastEventNumber()
+        );
+
+        return $aggregateRoot;
     }
 }
 ```
@@ -421,67 +383,62 @@ If you want to publish your events to an event bus or message broker, you may wa
 ```php
     /**
      * Returns null if no stream events can be found for aggregate root otherwise the reconstituted aggregate root
-     *
-     * @return Promise<?object>
      */
-    public function getAggregateRootAsOf(string $aggregateId, \DateTimeImmutable $asOf, UserCredentials $credentials = null): Promise {
+    public function getAggregateRootAsOf(string $aggregateId, \DateTimeImmutable $asOf, UserCredentials $credentials = null): ?object {
         if ($asOf->getTimezone()->getName() !== 'UTC') {
             $asOf = $asOff->setTimezone(new \DateTimeZone('UTC'));
         }
 
-        return call(function () use ($aggregateId, $credentials, $asOff): Generator {
-            $stream = $this->streamCategory . '-' . $aggregateId;
-            $start = 0;
-            $count = Consts::MAX_READ_SIZE;
-            do {
-                $events = [];
-                /** @var $streamEventsSlice StreamEventsSlice */
-                $streamEventsSlice = yield $this->eventStoreConnection
-                    ->readStreamEventsForwardAsync(
-                        $stream,
-                        $start,
-                        $count,
-                        true,
-                        $credentials
-                    );
+        $stream = $this->streamCategory . '-' . $aggregateId;
+        $start = 0;
+        $count = Consts::MAX_READ_SIZE;
+        do {
+            $events = [];
+            $streamEventsSlice = $this->eventStoreConnection
+                ->readStreamEventsForward(
+                    $stream,
+                    $start,
+                    $count,
+                    true,
+                    $credentials
+                );
 
-                if (!$streamEventsSlice->status()->equals(
-                    SliceReadStatus::success())
-                ) {
-                    return null;
-                }
-
-                $start = $streamEventsSlice->nextEventNumber();
-
-                foreach ($streamEventsSlice->events() as $event) {
-                    $domainEvent = $this->transformer->toDomainEvent($event);
-
-                    if ($domainEvent->createdAt() > $asOff) {
-                        break;
-                    }
-                    $events[] = $domainEvent;
-                }
-
-                if (isset($aggregateRoot)) {
-                    assert($aggregateRoot instanceof AggregateRoot);
-                    $aggregateRoot->replay($events);
-                } else {
-                    /** @var $className AggregateRoot */
-                    $className = $this->aggregateRootClassName;
-                    $aggregateRoot = $className::reconstituteFromHistory($events);
-                }
-            } while (!$streamEventsSlice->isEndOfStream());
-
-            if (!isset($aggregateRoot)) {
+            if (!$streamEventsSlice->status()->equals(
+                SliceReadStatus::success())
+            ) {
                 return null;
             }
 
-            $aggregateRoot->setExpectedVersion(
-                $streamEventsSlice->lastEventNumber()
-            );
+            $start = $streamEventsSlice->nextEventNumber();
 
-            return $aggregateRoot;
-        });
+            foreach ($streamEventsSlice->events() as $event) {
+                $domainEvent = $this->transformer->toDomainEvent($event);
+
+                if ($domainEvent->createdAt() > $asOff) {
+                    break;
+                }
+                $events[] = $domainEvent;
+            }
+
+            if (isset($aggregateRoot)) {
+                assert($aggregateRoot instanceof AggregateRoot);
+                $aggregateRoot->replay($events);
+            } else {
+                /** @var $className AggregateRoot */
+                $className = $this->aggregateRootClassName;
+                $aggregateRoot = $className::reconstituteFromHistory($events);
+            }
+        } while (!$streamEventsSlice->isEndOfStream());
+
+        if (!isset($aggregateRoot)) {
+            return null;
+        }
+
+        $aggregateRoot->setExpectedVersion(
+            $streamEventsSlice->lastEventNumber()
+        );
+
+        return $aggregateRoot;
     }
 ```
  
